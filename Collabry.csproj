@@ -56,10 +56,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClientHandler.cs" />
+    <Compile Include="File.cs" />
+    <Compile Include="InvitedGroupsnUser.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="ServerChat.cs" />
+    <Compile Include="ServerGroup.cs" />
+    <Compile Include="ServerRole.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserPM.cs" />
+    <Compile Include="Workgroup.cs" />
+    <Compile Include="WorkgroupGroup.cs" />
+    <Compile Include="WorkgroupMeeting.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
