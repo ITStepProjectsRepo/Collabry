@@ -23,6 +23,9 @@ namespace Collabry
         public MainWindow()
         {
             InitializeComponent();
+            User u = new User();
+            string v = u.MakeInvitation();
+            u.AddDM(v);
         }
     }
 }
