@@ -1,15 +1,17 @@
 using System;
+using System.Collections.Generic;
 
 namespace Collabry
 {
+    public enum NotificationSettings
+    {
+        None,
+        OnlyMention,
+        AllMessages
+    }
     public class UserPM
     {
-        public enum NotificationSettings
-        {
-            None,
-            OnlyMention,
-            AllMessages
-        }
+        
 
         public string OtherUserTag {get; set;}
         public NotificationSettings NotificationSettings {get; set;}
@@ -18,11 +20,8 @@ namespace Collabry
         public UserPM()
         {
             OtherUserTag = string.Empty;
-            NotificationSettings = NotificationSettings.AllMessages;
+            this.NotificationSettings = NotificationSettings.AllMessages;
             Messages = new List<Message>();
         }
-
-               
-
     }
 }

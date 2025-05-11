@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Collabry
 {
@@ -6,7 +7,6 @@ namespace Collabry
     {
         public int Id { get; set; }
         public string WorkgroupName { get; set; }
-
-        public List<WorkgroupGroup>  WorkgroupGroups { get; set; }
+        public List<WorkgroupGroup> WorkgroupGroups { get; set; }
     }
 }

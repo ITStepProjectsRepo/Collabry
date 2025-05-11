@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,6 +59,12 @@
     </ApplicationDefinition>
     <Compile Include="ClientHandler.cs" />
     <Compile Include="File.cs" />
+    <Compile Include="ShowUsrInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowUsrInfo.Designer.cs">
+      <DependentUpon>ShowUsrInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="InvitedGroupsnUser.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Server.cs" />
@@ -98,6 +106,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowUsrInfo.resx">
+      <DependentUpon>ShowUsrInfo.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

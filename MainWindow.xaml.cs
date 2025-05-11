@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Net.Sockets;
+using System.Net;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Collabry
 {
@@ -23,9 +15,21 @@ namespace Collabry
         public MainWindow()
         {
             InitializeComponent();
-            User u = new User();
-            string v = u.MakeInvitation();
-            u.AddDM(v);
+            User u = new User() {
+                UserTag = "qwerty123",
+                UserName = "qwerty123",
+                Email = "admin",
+                Password = "admin",
+                UserPicture = new System.Drawing.Bitmap(1, 1),
+                UserInfo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at tortor ut orci feugiat commodo non ornare leo.",
+            };
+            
+            //u.Connections.Add(localServer, _);
+            //u.UserDMSetting.Add(localServer, false);
+            Debug.WriteLine(u.ToString());
+            u.NewForm();
+            //string v = u.MakeInvitation();
+            //u.AddDM(v);
         }
     }
 }

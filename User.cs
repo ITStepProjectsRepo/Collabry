@@ -1,30 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+
 
 namespace Collabry
 {
     public class User
     {
+        private static string UserTag_S { get; set; }
+        public static Dictionary<User, TcpClient> ConnectionsS { get; set; }
+        public static Dictionary<User, List<Message>> UserDM_S { get; set; }
+        public static Dictionary<User, bool> UserDMSetting_S { get; set; }
+        public Dictionary<User, TcpClient> Connections { get; set; }
+        public Dictionary<User, List<Message>> UserDM { get; set; }
+        public Dictionary<User, bool> UserDMSetting { get; set; }
         public string UserTag { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public BitmapImage UserPicture { get; set; }
+        public Bitmap UserPicture { get; set; }
         public string UserInfo { get; set; }
-        public Dictionary<User, NetworkStream> Connections { get; set; }
-        public Dictionary<User, List<Message>> UserDM { get; set; }
-        public Dictionary<User, bool> UserDMSetting { get; set; }
+        public override string ToString()
+        {
+            return $"@{UserTag} {UserName}" +
+            $"About: {UserInfo}";
+        }
+
+        public void NewForm()
+        {
+            Thread t = new Thread(() => {
+                var f = new ShowUsrInfo(UserTag, UserName,
+                Email, Password,
+                UserPicture, UserInfo,
+                ConnectionsS,
+                UserDMSetting_S);
+                f.ShowDialog();
+            });
+            t.Start();
+        }
+
         public User() { }
-        public User(string userTag, string userName, string email, string password, BitmapImage userPicture, string userInfo)
+        public User(string userTag, string userName, string email, string password, Bitmap userPicture, string userInfo)
         {
             UserTag = userTag;
             UserName = userName;
@@ -32,8 +53,8 @@ namespace Collabry
             Password = password;
             UserPicture = userPicture;
             UserInfo = userInfo;
+            UserTag_S = userTag;
         }
-
         public string MakeInvitation()
         {
             string cipherKey = ClientHandler.GenerateRandomString(8);
@@ -103,9 +124,21 @@ namespace Collabry
 
                 using (var writer = new StreamWriter(stream))
                 {
+                    // Message used from class, it`s format:
+                    // MESS>{TAG}>{MESSAGE}|{DATETIME.YYYY}.{DATETIME.MM}.{DATETIME.DD}.{DATETIME.H}.{DATETIME.M}.{DATETIME.S}
+                    Message _msg = new Message() { Sender = UserTag_S, Text = message, SendTime = DateTime.Now };
                     writer.AutoFlush = true;
-                    writer.WriteLine(message);
+                    writer.WriteLine(
+                        $"MESS>{UserTag_S}>{_msg.Text}|" +
+                        $"{_msg.SendTime.Year}." +
+                        $"{_msg.SendTime.Month}." +
+                        $"{_msg.SendTime.Day}." +
+                        $"{_msg.SendTime.Hour}." +
+                        $"{_msg.SendTime.Minute}." +
+                        $"{_msg.SendTime.Second}");
                     writer.Flush();
+
+                    AddMessageDM(client, _msg.Text, true);
                 }
             }
             catch (Exception ex)
@@ -113,7 +146,6 @@ namespace Collabry
                 Console.WriteLine($"SendMessage error: {ex.Message}");
             }
         }
-
 
         private void ReceiveMessage(TcpClient client)
         {
@@ -124,13 +156,15 @@ namespace Collabry
 
                 while (client.Connected)
                 {
+                    // Message used from class, it`s format:
+                    // [TYPE]>{TAG}>{MESSAGE}
                     string message = reader.ReadLine();
                     if (message == null)
                         continue;
 
                     if (message.StartsWith("SYS>"))
                     {
-                        // Example: SYS>JohnDoe>INFO:John Doe;john@example.com
+                        // Sytem messages
                         try
                         {
                             if (message.Split('>')[1].StartsWith("USERINFO"))
@@ -142,9 +176,9 @@ namespace Collabry
                                 newU.UserPicture = ClientHandler.ConvertToBitmap(data.Split(';')[2]);
                                 newU.UserInfo = data.Split(';')[3];
 
-                                Connections.Add(newU, stream);
-                                UserDM.Add(newU, new List<Message>());
-                                UserDMSetting.Add(newU, true);  
+                                ConnectionsS.Add(newU, client);
+                                UserDM_S.Add(newU, new List<Message>());
+                                UserDMSetting_S.Add(newU, true);  
                             }
                             else if (message.Split('>')[1].StartsWith("ASKINFO"))
                             {
@@ -162,23 +196,13 @@ namespace Collabry
                     else if (message.StartsWith("PAK>")) { throw new NotImplementedException(); }
                     else if (message.StartsWith("MESS>"))
                     {
-                        foreach (var value in Connections)
+                        // Message used from class, it`s format:
+                        // MESS>{TAG}>{MESSAGE}|{DATETIME.YYYY}.{DATETIME.MM}.{DATETIME.DD}.{DATETIME.H}.{DATETIME.M}.{DATETIME.S}
+                        foreach (var value in ConnectionsS)
                         {
-                            if (Connections.Values.Equals(value.Value))
+                            if (ConnectionsS.Values.Equals(client))
                             {
-                                // Handle normal messages
-                                User connectionKey = value.Key;
-
-                                UserDM[connectionKey].Add(new Message(connectionKey.UserTag, message.Split('|')[0],
-                                    new DateTime(
-                                        Convert.ToInt32(message.Split('|')[1].Split('.')[0]),
-                                        Convert.ToInt32(message.Split('|')[1].Split('.')[1]),
-                                        Convert.ToInt32(message.Split('|')[1].Split('.')[2]),
-                                        Convert.ToInt32(message.Split('|')[1].Split('.')[3]),
-                                        Convert.ToInt32(message.Split('|')[1].Split('.')[4]),
-                                        Convert.ToInt32(message.Split('|')[1].Split('.')[5]))));
-
-                                Debug.WriteLine($"[DM] {connectionKey}: {message}");
+                                AddMessageDM(value.Key, message, false);
                             }
                         }
                     }
@@ -187,6 +211,84 @@ namespace Collabry
             catch (Exception ex)
             {
                 Console.WriteLine($"ReceiveMessage error: {ex.Message}");
+            }
+        }
+
+        private static void AddMessageDM(User user, string message, bool isSelf)
+        {
+            try
+            {
+                DateTime sendTime = DateTime.Now;
+                if (!isSelf)
+                {
+                    User connectionKey = user;
+                    UserDM_S[connectionKey].Add(new Message(connectionKey.UserTag, message.Split('|')[0],
+                                    new DateTime(
+                                        Convert.ToInt32(message.Split('|')[1].Split('.')[0]),
+                                        Convert.ToInt32(message.Split('|')[1].Split('.')[1]),
+                                        Convert.ToInt32(message.Split('|')[1].Split('.')[2]),
+                                        Convert.ToInt32(message.Split('|')[1].Split('.')[3]),
+                                        Convert.ToInt32(message.Split('|')[1].Split('.')[4]),
+                                        Convert.ToInt32(message.Split('|')[1].Split('.')[5]))));
+
+                    Debug.WriteLine($"[DM] {connectionKey.UserTag}: {message}");
+                }
+                else
+                {
+                    User connectionKey = user;
+                    UserDM_S[connectionKey].Add(new Message(UserTag_S, message, sendTime));
+
+                    Debug.WriteLine($"[DM] {connectionKey.UserTag}: {message}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"AddMessageDM error: {ex.Message}");
+            }
+        }
+
+        private static void AddMessageDM(TcpClient user, string message, bool isSelf)
+        {
+            try
+            {
+                DateTime sendTime = DateTime.Now;
+                if (!isSelf)
+                {
+                    foreach (var k in ConnectionsS)
+                    {
+                        if (k.Value.Equals(user))
+                        {
+                            User connectionKey = k.Key;
+                            UserDM_S[connectionKey].Add(new Message(connectionKey.UserTag, message.Split('|')[0],
+                                            new DateTime(
+                                                Convert.ToInt32(message.Split('|')[1].Split('.')[0]),
+                                                Convert.ToInt32(message.Split('|')[1].Split('.')[1]),
+                                                Convert.ToInt32(message.Split('|')[1].Split('.')[2]),
+                                                Convert.ToInt32(message.Split('|')[1].Split('.')[3]),
+                                                Convert.ToInt32(message.Split('|')[1].Split('.')[4]),
+                                                Convert.ToInt32(message.Split('|')[1].Split('.')[5]))));
+
+                            Debug.WriteLine($"[DM] {connectionKey.UserTag}: {message}");
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var k in ConnectionsS)
+                    {
+                        if (k.Value.Equals(user))
+                        {
+                            User connectionKey = k.Key;
+                            UserDM_S[connectionKey].Add(new Message(UserTag_S, message, sendTime));
+
+                            Debug.WriteLine($"[DM] {connectionKey.UserTag}: {message}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"AddMessageDM error: {ex.Message}");
             }
         }
     }

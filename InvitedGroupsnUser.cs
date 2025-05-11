@@ -4,6 +4,6 @@ namespace Collabry
 {
     public class InvitedGroupsnUser
     {
-        public string WorkGroupGroupTag {}
+        public string WorkGroupGroupTag { get; set; }
     }
 }

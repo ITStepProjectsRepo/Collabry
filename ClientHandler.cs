@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using System.Drawing;
 
 namespace Collabry
 {
@@ -74,16 +75,90 @@ namespace Collabry
             return sb.ToString();
         }
 
-        public static object ConvertToString(BitmapImage img)
+        //private static void RecieveMessage(NetworkStream stream)
+        //{
+        //    try
+        //    {
+        //        StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+
+        //        while (stream.DataAvailable)
+        //        {
+        //            string message = reader.ReadLine();
+        //            if (message == null)
+        //                continue;
+
+        //            if (message.StartsWith("SYS>"))
+        //            {
+        //                // SYSTEM messages
+        //                try
+        //                {
+        //                    if (message.Split('>')[1].StartsWith("USERINFO"))
+        //                    {
+        //                        string data = message.Split('>')[1].Split(':')[1];
+        //                        User newU = new User();
+        //                        newU.UserTag = data.Split(';')[0];
+        //                        newU.UserName = data.Split(';')[1];
+        //                        newU.UserPicture = ClientHandler.ConvertToBitmap(data.Split(';')[2]);
+        //                        newU.UserInfo = data.Split(';')[3];
+
+        //                        Connections.Add(newU, stream);
+        //                        UserDM.Add(newU, new List<Message>());
+        //                        UserDMSetting.Add(newU, true);
+        //                    }
+        //                    else if (message.Split('>')[1].StartsWith("ASKINFO"))
+        //                    {
+        //                        StreamWriter sw = new StreamWriter(stream);
+        //                        sw.WriteLine($"SYS>{UserTag}>USERINFO:{UserTag};{UserName};{ClientHandler.ConvertToString(UserPicture)};{UserInfo}");
+        //                        stream.Flush();
+        //                    }
+        //                    else { }
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    Console.WriteLine($"HandleSystemMessage error: {ex.Message}");
+        //                }
+        //            }
+        //            else if (message.StartsWith("PAK>")) { throw new NotImplementedException(); }
+        //            else if (message.StartsWith("MESS>"))
+        //            {
+        //                foreach (var value in Connections)
+        //                {
+        //                    if (Connections.Values.Equals(value.Value))
+        //                    {
+        //                        // Handle normal messages
+        //                        User connectionKey = value.Key;
+
+        //                        UserDM[connectionKey].Add(new Message(connectionKey.UserTag, message.Split('|')[0],
+        //                            new DateTime(
+        //                                Convert.ToInt32(message.Split('|')[1].Split('.')[0]),
+        //                                Convert.ToInt32(message.Split('|')[1].Split('.')[1]),
+        //                                Convert.ToInt32(message.Split('|')[1].Split('.')[2]),
+        //                                Convert.ToInt32(message.Split('|')[1].Split('.')[3]),
+        //                                Convert.ToInt32(message.Split('|')[1].Split('.')[4]),
+        //                                Convert.ToInt32(message.Split('|')[1].Split('.')[5]))));
+
+        //                        Debug.WriteLine($"[DM] {connectionKey}: {message}");
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"ReceiveMessage error: {ex.Message}");
+        //    }
+        //}
+
+        public static object ConvertToString(Bitmap img)
         {
             return "0";
         }
 
-        internal static BitmapImage ConvertToBitmap(string v)
+        internal static Bitmap ConvertToBitmap(string v)
         {
             if (v == null || v == "0")
                 return null;
-            return new BitmapImage();
+            return new Bitmap(1, 1);
         }
     }
 }
