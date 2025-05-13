@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,10 +11,23 @@ namespace Collabry
 {
     public class Message
     {
-        public string Text { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        public int TextChannelId { get; set; }
+        [ForeignKey(nameof(TextChannelId))]
+        public TextChannel TextChannel { get; set; }
+
         public string Sender { get; set; }
+
+        [Required]
+        public string Text { get; set; }
+
         public DateTime SendTime { get; set; }
-        //public File File { get; set; }
+
+        public bool IsEdited { get; set; } = false;
+
+        public File File { get; set; }
 
         public Message()
         {
@@ -25,15 +40,5 @@ namespace Collabry
             Text = text;
             SendTime = sendTime;
         }
-
-        public void AddMessage(string sender, string text)
-        {
-            Message message = new Message(sender, text, DateTime.Now);
-        }
-
-        public void RemoveMessage(string sender, string text)
-        {
-            
-        } 
     }
 }

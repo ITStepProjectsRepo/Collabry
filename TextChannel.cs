@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace Collabry
 {
-    public class ServerChat
+    public class TextChannel : ServerChannel
     {
-        public int Id { get; set; }
-        public string ChatName { get; set; }
-        public int ChatType { get; set; }
-        public int NotificationSettings { get; set; }
-
         public List<Message> Messages { get; set; }
+        public NotificationSettings NotificationSettings { get; set; }
     }
 }

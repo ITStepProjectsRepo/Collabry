@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Collabry
 {
@@ -30,6 +31,24 @@ namespace Collabry
             u.NewForm();
             //string v = u.MakeInvitation();
             //u.AddDM(v);
+
+            //using (var db = new AppDbContext())
+            //{
+            //    TextChannel channel = new TextChannel { Name = "General" };
+            //    db.TextChannels.Add(channel);
+            //    db.SaveChanges();
+
+            //    var msg = new Message
+            //    {
+            //        Text = "First message!",
+            //        SendTime = DateTime.Now,
+            //        Sender = "Vasya",
+            //        TextChannelId = channel.Id
+            //    };
+
+            //    db.Messages.Add(msg);
+            //    db.SaveChanges();
+            //}
         }
     }
 }

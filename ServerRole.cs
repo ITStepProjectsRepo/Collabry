@@ -1,4 +1,6 @@
 using System;
+using System.Windows.Documents;
+using System.Collections.Generic;
 
 namespace Collabry
 {
@@ -6,5 +8,6 @@ namespace Collabry
     {
         public int Id { get; set; }
         public string RoleName { get; set; }
+        public List<User> Users { get; set; }
     }
 }
