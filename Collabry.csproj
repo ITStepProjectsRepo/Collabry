@@ -117,6 +117,8 @@
     <Compile Include="Server.cs" />
     <Compile Include="ServerGroup.cs" />
     <Compile Include="ServerRole.cs" />
+    <Compile Include="Task.cs" />
+    <Compile Include="TaskInfo.cs" />
     <Compile Include="TextChannel.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserPM.cs" />
@@ -128,7 +130,7 @@
     <Compile Include="VoiceChatSender.cs" />
     <Compile Include="Workgroup.cs" />
     <Compile Include="WorkgroupGroup.cs" />
-    <Compile Include="WorkgroupMeeting.cs" />
+    <Compile Include="Meeting.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
