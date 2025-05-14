@@ -11,7 +11,6 @@ namespace Collabry
         public List<Meeting> Meetings { get; set; }
 
         public Workgroup() { }
-
         public Workgroup(int workgroupID, string workgroupName)
         {
             WorkgroupID = workgroupID;
