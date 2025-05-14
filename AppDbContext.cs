@@ -9,13 +9,18 @@ namespace Collabry
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+        public DbSet<User_S> Users_S { get; set; }
+        public DbSet<Server> Servers { get; set; }
+        public DbSet<ServerRole> ServerRoles { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Message_S> Messages_S { get; set; }
+        public DbSet<TextChannel> TextChannels { get; set; }
+
         public AppDbContext()
             : base("name=CollabryDb")
         {
         }
-
-        public DbSet<Message> Messages { get; set; }
-        public DbSet<TextChannel> TextChannels { get; set; }
 
         static AppDbContext()
         {

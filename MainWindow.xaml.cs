@@ -32,23 +32,32 @@ namespace Collabry
             //string v = u.MakeInvitation();
             //u.AddDM(v);
 
-            //using (var db = new AppDbContext())
-            //{
-            //    TextChannel channel = new TextChannel { Name = "General" };
-            //    db.TextChannels.Add(channel);
-            //    db.SaveChanges();
+            // Voice test
+            /*
+            // Sender
+            var sender = new VoiceChatSender("127.0.0.1", 5000);
+            sender.Start();
 
-            //    var msg = new Message
-            //    {
-            //        Text = "First message!",
-            //        SendTime = DateTime.Now,
-            //        Sender = "Vasya",
-            //        TextChannelId = channel.Id
-            //    };
+            // Receiver
+            var receiver = new VoiceChatReceiver(5000);
+            receiver.Start();
+            */
 
-            //    db.Messages.Add(msg);
-            //    db.SaveChanges();
-            //}
+            // Server roles, users and others test (DB is now broken)
+            /*
+            var user = UserService.AddUser("#0001", "Name", "Email", "12345");
+            var server = ServerService.CreateServer("My Server");
+            User_SService.AddUserToServer(user.Id, server.Id);
+
+            var mod = ServerRoleService.AddRole("Модератор", "Следит за порядком", canKickUsers: true, canBanUsers: true);
+            ServerRoleService.AssignRoleToUser(userId: user.Id, roleId: mod.Id);
+
+            var textChannel = ServerTextChannelService.CreateTextChannel(server.Id, "Chat");
+
+            var messageService = new Message_SService();
+            messageService.AddMessage(new Message_S { Text = "Hello world!", Sender = user.UserName, TextChannelId = textChannel.Id });
+            */
+
         }
     }
 }

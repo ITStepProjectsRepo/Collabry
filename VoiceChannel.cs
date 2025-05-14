@@ -8,7 +8,7 @@ namespace Collabry
 {
     public class VoiceChannel : ServerChannel
     {
-        public List<User> ConnectedUsers { get; set; }
+        public List<User_S> ConnectedUsers { get; set; }
         public int MaxUsers { get; set; } = 25;
         public Dictionary<int, bool> MutedUsers { get; set; }
     }

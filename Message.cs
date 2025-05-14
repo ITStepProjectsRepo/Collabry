@@ -14,10 +14,6 @@ namespace Collabry
         [Key]
         public int Id { get; set; }
 
-        public int TextChannelId { get; set; }
-        [ForeignKey(nameof(TextChannelId))]
-        public TextChannel TextChannel { get; set; }
-
         public string Sender { get; set; }
 
         [Required]

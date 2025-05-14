@@ -8,7 +8,6 @@ namespace Collabry
 {
     public class TextChannel : ServerChannel
     {
-        public List<Message> Messages { get; set; }
-        public NotificationSettings NotificationSettings { get; set; }
+        public virtual List<Message_S> Messages_S { get; set; } = new List<Message_S>();
     }
 }

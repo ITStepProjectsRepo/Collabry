@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -12,6 +14,8 @@ namespace Collabry
 {
     public class User
     {
+        [Key]
+        public int Id { get; set; }
         private static string UserTag_S { get; set; }
         public static Dictionary<User, TcpClient> ConnectionsS { get; set; }
         public static Dictionary<User, List<Message>> UserDM_S { get; set; }
@@ -23,7 +27,34 @@ namespace Collabry
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public Bitmap UserPicture { get; set; }
+        public byte[] UserPictureData { get; set; }
+
+        [NotMapped]
+        public Bitmap UserPicture
+        {
+            get
+            {
+                if (UserPictureData == null) return null;
+                using (var ms = new MemoryStream(UserPictureData))
+                {
+                    return new Bitmap(ms);
+                }
+            }
+            set
+            {
+                if (value == null)
+                {
+                    UserPictureData = null;
+                    return;
+                }
+
+                using (var ms = new MemoryStream())
+                {
+                    value.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    UserPictureData = ms.ToArray();
+                }
+            }
+        }
         public string UserInfo { get; set; }
         public override string ToString()
         {

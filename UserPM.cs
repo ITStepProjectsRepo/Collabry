@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Collabry
 {
-    public enum NotificationSettings
+    public enum NotificationSetting
     {
         None,
         OnlyMention,
@@ -14,13 +14,13 @@ namespace Collabry
         
 
         public string OtherUserTag {get; set;}
-        public NotificationSettings NotificationSettings {get; set;}
+        public NotificationSetting NotificationSetting {get; set;}
         public List<Message> Messages {get; set;}
 
         public UserPM()
         {
             OtherUserTag = string.Empty;
-            this.NotificationSettings = NotificationSettings.AllMessages;
+            this.NotificationSetting = NotificationSetting.AllMessages;
             Messages = new List<Message>();
         }
     }
