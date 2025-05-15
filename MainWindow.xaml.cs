@@ -27,8 +27,8 @@ namespace Collabry
             
             //u.Connections.Add(localServer, _);
             //u.UserDMSetting.Add(localServer, false);
-            Debug.WriteLine(u.ToString());
-            u.NewForm();
+            //Debug.WriteLine(u.ToString());
+            //u.NewForm();
             //string v = u.MakeInvitation();
             //u.AddDM(v);
 
