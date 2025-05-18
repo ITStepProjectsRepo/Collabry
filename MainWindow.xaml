@@ -5,17 +5,92 @@
         ResizeMode="NoResize">
 
     <Grid>
-        <Grid Visibility="Visible" Background="Gray">
+        <!-- Settings -->
+        <!-- Default visibility Collapsed -->
+        <Grid Visibility="Collapsed" Background="Gray">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
+            <StackPanel Grid.Column="0" Background="#252537">
+                <!-- "Search chats" -->
+                <Border CornerRadius="10" BorderBrush="LightGray" BorderThickness="1" VerticalAlignment="Center" Margin="12 12">
+                    <TextBox Height="25" Width="200" BorderBrush="Transparent" Text="Search" FontSize="16" Foreground="White" Background="Transparent"/>
+                </Border>
+                <!-- Chat list -->
+                <ScrollViewer Margin="0" Padding="0" VerticalScrollBarVisibility="Hidden">
+                    <ListBox Background="Transparent" Margin="0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
+                        <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
+                            <Border CornerRadius="10" Background="Transparent" Padding="0">
+                                <StackPanel Background="Transparent">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Visibility="Visible" Foreground="White" Text="User Settings" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
+                                    </StackPanel>
+                                    <ListBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Padding="2">
+                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                            <Border CornerRadius="10" Background="Transparent" Width="200" BorderBrush="Gray" BorderThickness="1">
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBlock Text="My Account" Foreground="White" FontSize="20" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ListBoxItem>
+                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                            <Border CornerRadius="10" Background="Transparent" Width="200" BorderBrush="Gray" BorderThickness="1">
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBlock Text="Profiles" Foreground="White" FontSize="20" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ListBoxItem>
+                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                            <Border CornerRadius="10" Background="Transparent" Width="200" BorderBrush="Gray" BorderThickness="1">
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBlock Text="Voice and Video" Foreground="White" FontSize="20" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ListBoxItem>
+                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                            <Border CornerRadius="10" Background="Transparent" Width="200" BorderBrush="Gray" BorderThickness="1">
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBlock Text="Appearance" Foreground="White" FontSize="20" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ListBoxItem>
+                                    </ListBox>
+                                </StackPanel>
+                            </Border>
+                        </ListBoxItem>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
+
+            <Border Grid.Column="1" Background="#353551" BorderBrush="LightGray" BorderThickness="1 0 1 0">
+                <StackPanel Margin="0">
+                    <Border BorderBrush="LightGray" BorderThickness="0 0 0 1">
+                        <TextBlock Text="My Account" Foreground="White" FontSize="20" Padding="16 8" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel>
+                        
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Column="2" Orientation="Vertical" Background="#252537">
+                <Border HorizontalAlignment="Center" Margin="20 8">
+                    <StackPanel>
+                        <Border CornerRadius="16" Width="32" Height="32" BorderBrush="Gray" BorderThickness="1">
+                            
+                        </Border>
+                        <TextBlock Text="Esc" Foreground="Gray" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
                 
             </StackPanel>
         </Grid>
-        <Grid Visibility="Collapsed" Background="LightGray">
+
+        <!-- Main panel -->
+        <!-- Default visibility Visible -->
+        <Grid Visibility="Visible" Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="250"/>
@@ -25,7 +100,7 @@
 
             <!-- Selector -->
             <!-- Visibility to collapsed -->
-            <StackPanel Grid.Column="0" Visibility="Collapsed">
+            <StackPanel Grid.Column="0" Visibility="Visible">
                 <Border BorderBrush="#DDD" BorderThickness="2" Height="684">
                     <ListBox BorderBrush="Transparent">
                         <ListBoxItem Padding="0" Margin="0">
@@ -35,12 +110,12 @@
                         </ListBoxItem>
                         <ListBoxItem Padding="0" Margin="0">
                             <Border Height="65" Width="65" Background="#DDD" Margin="0" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
-                                <TextBlock Text="DM" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
+                                <TextBlock Text="DIS" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
                             </Border>
                         </ListBoxItem>
                         <ListBoxItem Padding="0" Margin="0">
                             <Border Height="65" Width="65" Background="#DDD" Margin="0" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
-                                <TextBlock Text="DM" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
+                                <TextBlock Text="TIMS" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
                             </Border>
                         </ListBoxItem>
                         <ListBoxItem Padding="0" Margin="0">
@@ -54,8 +129,8 @@
 
             <!-- ChatList -->
             <!-- Visibility to collapsed -->
-            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
-                <StackPanel>
+            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Visible">
+                <StackPanel Background="White">
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Direct messages" FontSize="18" FontWeight="Bold" Width="204" Padding="10 8 0 8" TextWrapping="NoWrap" Margin="0"/>
@@ -71,58 +146,58 @@
 
                     <!-- Chat list -->
                     <ListBox Background="Transparent" Margin="0 8 0 0" BorderThickness="0">
-                        <ListBoxItem Width="240">
+                        <ListBoxItem Width="240" Visibility="Visible">
                             <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray">
                                 <StackPanel Orientation="Horizontal" Width="245">
                                     <Border Height="40" Width="40" Background="#DDD" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
-                                        <TextBlock Text="Helen" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="8"/>
+                                        <TextBlock Text="Кристя" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="8"/>
                                     </Border>
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" Width="170">
-                                            <TextBlock Text="Helen" FontSize="18" Padding="2" TextWrapping="NoWrap" Width="150" HorizontalAlignment="Left" Margin="0"/>
+                                            <TextBlock Text="Кристя" FontSize="18" Padding="2" TextWrapping="NoWrap" Width="150" HorizontalAlignment="Left" Margin="0"/>
                                             <Border Height="10" Width="10" Background="#2B90C8" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left" Visibility="Visible"/>
                                         </StackPanel>
 
-                                        <TextBlock Text="No honestly I'm thinking of ..." Padding="2" TextWrapping="NoWrap" Width="160" HorizontalAlignment="Left" Margin="0"/>
+                                        <TextBlock Text="Та работаю я, успокойся ус..." Padding="2" TextWrapping="NoWrap" Width="160" HorizontalAlignment="Left" Margin="0"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
                         </ListBoxItem>
-                        <ListBoxItem Width="240">
+                        <ListBoxItem Width="240" Visibility="Visible">
                             <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray">
                                 <StackPanel Orientation="Horizontal" Width="230">
                                     <Border Height="40" Width="40" Background="#DDD" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
-                                        <TextBlock Text="Oscar" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="8"/>
+                                        <TextBlock Text="Некич" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="8"/>
                                     </Border>
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" Width="170">
-                                            <TextBlock Text="Oscar Davis" FontSize="18" Padding="2" TextWrapping="NoWrap" Width="150" HorizontalAlignment="Left" Margin="0"/>
+                                            <TextBlock Text="Некич" FontSize="18" Padding="2" TextWrapping="NoWrap" Width="150" HorizontalAlignment="Left" Margin="0"/>
                                             <Border Height="10" Width="10" Background="#2B90C8" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left" Visibility="Hidden"/>
                                         </StackPanel>
 
-                                        <TextBlock Text="No honestly I'm thinking of ..." Padding="2" TextWrapping="NoWrap" Width="160" HorizontalAlignment="Left" Margin="0"/>
+                                        <TextBlock Text="Мемчики в телеге зацени" Padding="2" TextWrapping="NoWrap" Width="160" HorizontalAlignment="Left" Margin="0"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
                         </ListBoxItem>
-                        <ListBoxItem Width="240">
+                        <ListBoxItem Width="240" Visibility="Visible">
                             <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray">
                                 <StackPanel Orientation="Horizontal" Width="230">
                                     <Border Height="40" Width="40" Background="#DDD" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
-                                        <TextBlock Text="Daniel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="8"/>
+                                        <TextBlock Text="Т" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="8"/>
                                     </Border>
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" Width="170">
-                                            <TextBlock Text="Daniel Jar Park" FontSize="18" Padding="2" TextWrapping="NoWrap" Width="150" HorizontalAlignment="Left" Margin="0"/>
-                                            <Border Height="10" Width="10" Background="#FF90A3AD" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left" Visibility="Visible"/>
+                                            <TextBlock Text="Тимофейка" FontSize="18" Padding="2" TextWrapping="NoWrap" Width="150" HorizontalAlignment="Left" Margin="0"/>
+                                            <Border Visibility="Hidden" Height="10" Width="10" Background="#FF90A3AD" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left"/>
                                         </StackPanel>
 
-                                        <TextBlock Text="No honestly I'm thinking of ..." Padding="2" TextWrapping="NoWrap" Width="160" HorizontalAlignment="Left" Margin="0"/>
+                                        <TextBlock Text="Ержан, вставай работать п..." Padding="2" TextWrapping="NoWrap" Width="160" HorizontalAlignment="Left" Margin="0"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
                         </ListBoxItem>
-                        <ListBoxItem Width="240">
+                        <ListBoxItem Width="240" Visibility="Collapsed">
                             <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray">
                                 <StackPanel Orientation="Horizontal" Width="230">
                                     <Border Height="40" Width="40" Background="#DDD" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
@@ -139,7 +214,7 @@
                                 </StackPanel>
                             </Border>
                         </ListBoxItem>
-                        <ListBoxItem Width="240">
+                        <ListBoxItem Width="240" Visibility="Collapsed">
                             <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray">
                                 <StackPanel Orientation="Horizontal" Width="230">
                                     <Border Height="40" Width="40" Background="#DDD" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
@@ -162,7 +237,7 @@
 
             <!-- Chat area -->
             <!-- Visibility to collapsed -->
-            <Grid Grid.Column="2" Background="White" Visibility="Collapsed">
+            <Grid Grid.Column="2" Background="White" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="58"/>
                     <!-- Top Bar -->
@@ -177,9 +252,9 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" Width="500">
                             <TextBlock FontWeight="Bold" FontSize="16">
-                            <Run Text="Helena Hills"/>
+                            <Run Text="Кристя"/>
                             <LineBreak/>
-                            <Run FontFamily="454545" FontSize="9" Text="Actives 20 min" Foreground="#FF646161"/>
+                            <Run FontFamily="454545" FontSize="9" Text="Was active 20 min" Foreground="#FF646161"/>
                             </TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -198,41 +273,71 @@
                     <ScrollViewer Margin="0 0 0 0">
                         <ListBox>
                             <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
-                                <Border Background="#eee" CornerRadius="16 16 0 16">
+                                <Border Background="#DCF8C6" CornerRadius="16 16 0 16">
                                     <StackPanel>
-                                        <TextBlock MinWidth="80" Text="No honestly I'm thinking of a career pivot" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
-                                        <TextBlock MinWidth="80" Text="16:28" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" MaxWidth = "400" Text="Короче давай пересмотрим организацию, поэтому жду сегодня" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="18:24" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
                                     </StackPanel>
                                 </Border>
                             </ListBoxItem>
-                            <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
-                                <Border Background="#eee" CornerRadius="16 16 0 16">
+                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
+                                <Border Background="#eee" CornerRadius="16 16 16 0">
                                     <StackPanel>
-                                        <TextBlock MinWidth="80" Text="This is the main chat template" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
-                                        <TextBlock MinWidth="80" Text="16:28" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" MaxWidth = "400" Text="Ну ок" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="19:05" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap"  TextAlignment="Right" Margin="0"/>
                                     </StackPanel>
                                 </Border>
                             </ListBoxItem>
                             <ListBoxItem HorizontalContentAlignment="Center">
                                 <StackPanel Margin="0 4">
-                                    <Border Background="#7F808080" CornerRadius="8" Padding="6 3">
-                                        <TextBlock Text="May 14, 2025, 22:41" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
+                                    <Border Background="#7F808080" CornerRadius="8" Padding="9 3">
+                                        <TextBlock Text="May 14, 2025" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
                                     </Border>
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
-                                <Border Background="#DCF8C6" CornerRadius="16 16 16 0">
+                            <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
+                                <Border Background="#DCF8C6" CornerRadius="16 16 0 16">
                                     <StackPanel>
-                                        <TextBlock MinWidth="80" Text="Wha?" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
-                                        <TextBlock MinWidth="80" Text="22:41" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap"  TextAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" MaxWidth = "400" Text="Кристина пожалуйста сделай что-нибудь по коду" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="18:24" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                    </StackPanel>
+                                </Border>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Center">
+                                <StackPanel Margin="0 4">
+                                    <Border Background="#7F808080" CornerRadius="8" Padding="9 3">
+                                        <TextBlock Text="May 15, 2025" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
+                                    </Border>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
+                                <Border Background="#DCF8C6" CornerRadius="16 16 0 16">
+                                    <StackPanel>
+                                        <TextBlock MinWidth="80" MaxWidth = "400" Text="Кристина у нас дєдлайн на носу" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="18:24" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                    </StackPanel>
+                                </Border>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Center">
+                                <StackPanel Margin="0 4">
+                                    <Border Background="#7F808080" CornerRadius="8" Padding="9 3">
+                                        <TextBlock Text="May 19, 2025" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
+                                    </Border>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
+                                <Border Background="#DCF8C6" CornerRadius="16 16 0 16">
+                                    <StackPanel>
+                                        <TextBlock MinWidth="80" MaxWidth = "400" Text="Кристина у нас дєдлайн на носу" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="12:15" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
                                     </StackPanel>
                                 </Border>
                             </ListBoxItem>
                             <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
-                                <Border Background="#DCF8C6" CornerRadius="16 16 16 0">
+                                <Border Background="#eee" CornerRadius="16 16 16 0">
                                     <StackPanel>
-                                        <TextBlock Text="Oh, I got it, looks cool!" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
-                                        <TextBlock Text="22:42" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" MaxWidth = "400" Text="Та работаю я, успокойся к сроку успеем" Background="Transparent" Padding="10 8 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="14:39" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap"  TextAlignment="Right" Margin="0"/>
                                     </StackPanel>
                                 </Border>
                             </ListBoxItem>
@@ -244,7 +349,7 @@
                 <Border Grid.Row="2" Padding="2 0" BorderBrush="LightGray" BorderThickness="0 2 2 2">
                     <Border CornerRadius="10" BorderBrush="LightGray" BorderThickness="2" VerticalAlignment="Center">
                         <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                            <TextBox Height="24" Width="530" Text="Type a message..." Foreground="Gray" Margin="4 0" BorderBrush="Transparent"/>
+                            <TextBox Height="24" Width="535" Text="Type a message..." Foreground="Gray" Margin="4 0" BorderBrush="Transparent"/>
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="24" Margin="0 0 0 0" Background="LightGray" CornerRadius="18">
 
@@ -260,17 +365,17 @@
 
             <!-- Profile panel -->
             <!-- Visibility to collapsed -->
-            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
-                <StackPanel>
+            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Visible">
+                <StackPanel Background="White">
                     <Border Margin="20" Width="120" Height="120" Background="#DDD" CornerRadius="60" HorizontalAlignment="Center">
-                        <TextBlock Text="H" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"/>
+                        <TextBlock Text="Кристя" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
                     </Border>
                     <StackPanel>
-                        <TextBlock Text="Helena" FontSize="18" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Active 20m ago" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                        <TextBlock Text="Кристя" FontSize="18" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Was active 20 min ago" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,20"/>
                     </StackPanel>
                     <Border Padding="36 0">
-                        <TextBlock Text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum" Foreground="Black" HorizontalAlignment="Center" Margin="0 5" TextWrapping="Wrap"/>
+                        <TextBlock Text="Лень - изобретение дураков, однако именно она толкает нас в сторону прогресса" Foreground="Black" HorizontalAlignment="Center" Margin="0 5" TextWrapping="Wrap"/>
                     </Border>
                     <ListBox Background="Transparent" BorderBrush="Transparent">
                         <ListBoxItem HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="200">
@@ -304,7 +409,7 @@
                 <StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Server Name" FontSize="18" FontWeight="Bold" Width="204" Padding="10 8 0 8" TextWrapping="NoWrap" Margin="0"/>
+                        <TextBlock Text="DIS TEST" FontSize="18" FontWeight="Bold" Width="204" Padding="10 8 0 8" TextWrapping="NoWrap" Margin="0"/>
                     </StackPanel>
 
                     <!-- "Search chats" 
@@ -321,42 +426,42 @@
                                         <TextBlock Visibility="Collapsed" Text="Lorem Ipsum" FontSize="16" MaxWidth="200" Padding="10 2" TextWrapping="NoWrap" Margin="0"/>
                                         <ListBox BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="220" HorizontalAlignment="Left">
-                                                <Border CornerRadius="10" Background="LightGray" Width="200">
+                                                <Border CornerRadius="10" Background="#FFEDEDED" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text1" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="220" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text2" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="220" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text3" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="220" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text4" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
@@ -367,55 +472,55 @@
                             <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                                 <Border CornerRadius="10" Background="#6D8B75" Padding="0">
                                     <StackPanel Background="Transparent">
-                                        <TextBlock Visibility="Visible" Foreground="White" Text="Lorem Ipsum" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
+                                        <TextBlock Visibility="Visible" Foreground="White" Text="Voice chats" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
                                         <ListBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Padding="2">
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="LightBlue">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Voice test1" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="LightBlue">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Voice test2" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="LightBlue">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Voice test3" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="LightBlue">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Voice test4" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="LightBlue">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Voice test5" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
@@ -426,55 +531,55 @@
                             <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                                 <Border CornerRadius="10" Background="#6D8B75" Padding="0">
                                     <StackPanel Background="Transparent">
-                                        <TextBlock Visibility="Visible" Foreground="White" Text="Lorem Ipsum" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
+                                        <TextBlock Visibility="Visible" Foreground="White" Text="Text chats" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
                                         <ListBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Padding="2">
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text 1" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text 2" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text 3" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text 4" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="White" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="Green">
+                                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
                                                         </Border>
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Text 5" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
@@ -503,7 +608,7 @@
                 <Border Background="#FAFAFA" BorderBrush="#DDD" BorderThickness="0 2 2 2" Padding="8 10 0 10" Grid.Row="0">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" Width="500" VerticalAlignment="Center">
-                            <TextBlock Text="Lorem Ipsum" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="Text1" FontWeight="Bold" FontSize="16"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Border Width="36" Margin="0 0 10 0" Background="LightGray" CornerRadius="18">
@@ -520,7 +625,7 @@
                 <Grid Grid.Row="1">
                     <ScrollViewer Margin="0 0 0 0">
                         <ListBox>
-                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
+                            <ListBoxItem Visibility="Collapsed" HorizontalContentAlignment="Left" Margin="0 2">
                                 <Border Background="#eee" CornerRadius="16 16 16 0">
                                     <StackPanel>
                                         <TextBlock MinWidth="80" Text="UserName" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
@@ -529,7 +634,7 @@
                                     </StackPanel>
                                 </Border>
                             </ListBoxItem>
-                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
+                            <ListBoxItem Visibility="Collapsed" HorizontalContentAlignment="Left" Margin="0 2">
                                 <Border Background="#eee" CornerRadius="16 16 16 0">
                                     <StackPanel>
                                         <TextBlock MinWidth="80" Text="UserName" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
@@ -539,17 +644,19 @@
                                 </Border>
                             </ListBoxItem>
                             <ListBoxItem HorizontalContentAlignment="Center">
-                                <StackPanel Margin="0 4">
-                                    <Border Background="#7F808080" CornerRadius="8" Padding="6 3">
-                                        <TextBlock Text="May 14, 2025, 22:41" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
+                                <StackPanel Margin="0 4" Orientation="Horizontal">
+                                    <Border Height="2" Width="220" CornerRadius="1" Background="LightGray"/>
+                                    <Border Background="#7F808080" CornerRadius="8" Padding="6 3" Margin="8 0">
+                                        <TextBlock Text="May 14, 2025" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
                                     </Border>
+                                    <Border Height="2" Width="220" CornerRadius="1" Background="LightGray"/>
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
                                 <Border Background="#eee" CornerRadius="16 16 16 0">
                                     <StackPanel>
-                                        <TextBlock MinWidth="80" Text="UserName" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
-                                        <TextBlock MinWidth="80" Text="No honestly I'm thinking of a career pivot" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="Myhailo" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="черканите сюда для проверки" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
                                         <TextBlock MinWidth="80" Text="16:28" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
                                     </StackPanel>
                                 </Border>
@@ -557,8 +664,8 @@
                             <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
                                 <Border Background="#eee" CornerRadius="16 16 16 0">
                                     <StackPanel>
-                                        <TextBlock MinWidth="80" Text="UserName" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
-                                        <TextBlock MinWidth="80" Text="No honestly I'm thinking of a career pivot" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="Кристя" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="А какая разница?" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
                                         <TextBlock MinWidth="80" Text="16:28" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
                                     </StackPanel>
                                 </Border>
@@ -566,8 +673,26 @@
                             <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
                                 <Border Background="#eee" CornerRadius="16 16 16 0">
                                     <StackPanel>
-                                        <TextBlock MinWidth="80" Text="UserName" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
-                                        <TextBlock MinWidth="80" Text="No honestly I'm thinking of a career pivot" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="Myhailo" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="так надо" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="16:29" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                    </StackPanel>
+                                </Border>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
+                                <Border Background="#eee" CornerRadius="16 16 16 0">
+                                    <StackPanel>
+                                        <TextBlock MinWidth="80" Text="Тимофейка" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="Ping" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="16:28" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                    </StackPanel>
+                                </Border>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
+                                <Border Background="#eee" CornerRadius="16 16 16 0">
+                                    <StackPanel>
+                                        <TextBlock MinWidth="80" Text="Некич" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                        <TextBlock MinWidth="80" Text="Pong" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
                                         <TextBlock MinWidth="80" Text="16:28" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
                                     </StackPanel>
                                 </Border>
@@ -602,7 +727,7 @@
                         <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                             <Border CornerRadius="10" Background="Transparent" Padding="0">
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Visibility="Visible" Foreground="Black" Text="Lorem Ipsum" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
+                                    <TextBlock Visibility="Visible" Foreground="Black" Text="Геьтмани регіону" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
                                     <ListBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Padding="2">
                                         <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                             <Border CornerRadius="10" Background="LightGray" Width="200">
@@ -610,7 +735,10 @@
                                                     <Border Margin="8" Height="40" Width="40" CornerRadius="20" Background="Green">
 
                                                     </Border>
-                                                    <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Myhailo" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                    <Border Margin="16" Height="20" Width="20" CornerRadius="20" Background="Gold">
+                                                        
+                                                    </Border>
                                                 </StackPanel>
                                             </Border>
                                         </ListBoxItem>
@@ -620,7 +748,7 @@
                                                     <Border Margin="8" Height="40" Width="40" CornerRadius="20" Background="Green">
 
                                                     </Border>
-                                                    <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Кристя" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                 </StackPanel>
                                             </Border>
                                         </ListBoxItem>
@@ -630,7 +758,17 @@
                                                     <Border Margin="8" Height="40" Width="40" CornerRadius="20" Background="Green">
 
                                                     </Border>
-                                                    <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Некич" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ListBoxItem>
+                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                            <Border CornerRadius="10" Background="LightGray" Width="200">
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <Border Margin="8" Height="40" Width="40" CornerRadius="20" Background="Green">
+
+                                                    </Border>
+                                                    <TextBlock Text="Тимофейка" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                 </StackPanel>
                                             </Border>
                                         </ListBoxItem>
@@ -638,7 +776,7 @@
                                 </StackPanel>
                             </Border>
                         </ListBoxItem>
-                        <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
+                        <ListBoxItem Visibility="Collapsed" Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                             <Border CornerRadius="10" Background="Transparent" Padding="0">
                                 <StackPanel Background="Transparent">
                                     <TextBlock Visibility="Visible" Foreground="Black" Text="Lorem Ipsum" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
@@ -687,7 +825,7 @@
                                 </StackPanel>
                             </Border>
                         </ListBoxItem>
-                        <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
+                        <ListBoxItem Visibility="Collapsed" Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                             <Border CornerRadius="10" Background="Transparent" Padding="0">
                                 <StackPanel Background="Transparent">
                                     <TextBlock Visibility="Visible" Foreground="Black" Text="Lorem Ipsum" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
@@ -784,7 +922,7 @@
 
                             </Border>
                         </StackPanel>
-                        <TextBlock Text="Server Name" FontSize="24" FontWeight="SemiBold" Padding="20 0 0 0" TextWrapping="NoWrap" Margin="0"/>
+                        <TextBlock Text="TIMS TEST" FontSize="24" FontWeight="SemiBold" Padding="20 0 0 0" TextWrapping="NoWrap" Margin="0"/>
                     </StackPanel>
 
                     <!-- Chat list -->
@@ -795,31 +933,46 @@
                                     <StackPanel Background="Transparent">
                                         <TextBlock Visibility="Collapsed" Text="Lorem Ipsum" FontSize="16" MaxWidth="200" Padding="10 2" TextWrapping="NoWrap" Margin="0"/>
                                         <ListBox BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
-                                            <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                            <ListBoxItem Visibility="Visible" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                                <Border CornerRadius="10" Background="#FF545480" Width="200">
+                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <TextBlock Text="Announcements" FontSize="20" FontWeight="SemiBold" Foreground="White" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ListBoxItem>
+                                            <ListBoxItem Visibility="Collapsed" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Announcements" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ListBoxItem>
+                                            <ListBoxItem Visibility="Visible" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                                <Border CornerRadius="10" Background="LightGray" Width="200">
+                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <TextBlock Text="Time Table" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ListBoxItem>
+                                            <ListBoxItem Visibility="Collapsed" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                                <Border CornerRadius="10" Background="#FF545480" Width="200">
+                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <TextBlock Text="Time Table" FontSize="20" FontWeight="SemiBold" Foreground="White" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Tasks" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
+                                            
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </ListBoxItem>
-                                            <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
-                                                <Border CornerRadius="10" Background="LightGray" Width="200">
-                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Blackboards" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
@@ -839,8 +992,8 @@
                                 <Border CornerRadius="10" Background="Transparent" Padding="0">
                                     <StackPanel Background="Transparent">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Visibility="Visible" Foreground="Black" Text="Lorem Ipsum" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
-                                            <Border Margin="70 0 0 0" CornerRadius="10" Height="20" Width="20" Background="WhiteSmoke">
+                                            <TextBlock Visibility="Visible" Foreground="Black" Text="Workgroups channels" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
+                                            <Border Margin="10 0 0 0" CornerRadius="10" Height="20" Width="20" Background="WhiteSmoke">
 
                                             </Border>
                                         </StackPanel>
@@ -848,42 +1001,42 @@
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Channel 1" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Channel 2" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Channel 3" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Channel 4" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Channel 5" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="Lorem Ipsum" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Channel 6" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                             </ListBoxItem>
@@ -912,7 +1065,7 @@
                 <Border Background="#FAFAFA" BorderBrush="#DDD" BorderThickness="0 2 2 2" Padding="8 10 0 10" Grid.Row="0">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" Width="750" VerticalAlignment="Center">
-                            <TextBlock Text="Lorem Ipsum" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="Announcements" FontWeight="Bold" FontSize="16"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Border Width="36" Margin="0 0 10 0" Background="LightGray" CornerRadius="18">
@@ -929,32 +1082,54 @@
                 <Grid Grid.Row="1">
                     <ScrollViewer Margin="0 0 0 0">
                         <ListBox>
-                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
-                                <Border Background="#eee" CornerRadius="16 16 16 0">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock MinWidth="100" Text="UserNamesdsdsdsdsdsdsdsd" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
-                                            <TextBlock MinWidth="100" Text="13.05.2025 16:28" Foreground="Gray" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
-                                        </StackPanel>
-                                        <TextBlock MinWidth="100" Text="No honestly I'm thinking of a career pivot" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0"/>
-                                    </StackPanel>
-                                </Border>
-                            </ListBoxItem>
                             <ListBoxItem HorizontalContentAlignment="Center">
                                 <StackPanel Margin="0 4">
                                     <Border Background="#7F808080" CornerRadius="8" Padding="6 3">
-                                        <TextBlock Text="May 14, 2025" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
+                                        <TextBlock Text="May 16, 2025" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
                                     </Border>
                                 </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
+                                <Border Background="#FFADC5E6" CornerRadius="16 16 0 16">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock MinWidth="100" Text="Myhailo" Foreground="WhiteSmoke" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                            <TextBlock MinWidth="100" Text="16.05.2025 18:19" Foreground="WhiteSmoke" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                        </StackPanel>
+                                        <TextBlock MinWidth="100" Text="We finally made something great!!!" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0"/>
+                                    </StackPanel>
+                                </Border>
                             </ListBoxItem>
                             <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
                                 <Border Background="#eee" CornerRadius="16 16 16 0">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock MinWidth="100" Text="UserNadfdfdfdfdfdf" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
-                                            <TextBlock MinWidth="100" Text="14.05.2025 14:00" Foreground="Gray" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                            <TextBlock MinWidth="100" Text="Некич" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                            <TextBlock MinWidth="100" Text="16.05.2025 18:18" Foreground="Gray" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
                                         </StackPanel>
-                                        <TextBlock MinWidth="100" Text="Today`s task has been published. It`s Due next Tuesday" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0"/>
+                                        <TextBlock MinWidth="100" Text="На шаг ближе к финалу" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0"/>
+                                    </StackPanel>
+                                </Border>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
+                                <Border Background="#eee" CornerRadius="16 16 16 0">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock MinWidth="100" Text="Тимофейка" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                            <TextBlock MinWidth="100" Text="16.05.2025 18:20" Foreground="Gray" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                        </StackPanel>
+                                        <TextBlock MinWidth="100" Text="ура)" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0"/>
+                                    </StackPanel>
+                                </Border>
+                            </ListBoxItem>
+                            <ListBoxItem HorizontalContentAlignment="Left" Margin="0 2">
+                                <Border Background="#eee" CornerRadius="16 16 16 0">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock MinWidth="100" Text="Кристя" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                            <TextBlock MinWidth="100" Text="16.05.2025 18:26" Foreground="Gray" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                        </StackPanel>
+                                        <TextBlock MinWidth="100" Text="Ужааас его так сложно делать, не поверите" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0"/>
                                     </StackPanel>
                                 </Border>
                             </ListBoxItem>
@@ -962,10 +1137,10 @@
                                 <Border Background="#FFADC5E6" CornerRadius="16 16 0 16">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock MinWidth="100" Text="UserNfgjhhgfd" Foreground="WhiteSmoke" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
-                                            <TextBlock MinWidth="100" Text="14.05.2025 14:05" Foreground="WhiteSmoke" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                                            <TextBlock MinWidth="20" Text="Myhailo" Foreground="WhiteSmoke" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                                            <TextBlock MinWidth="20" Text="16.05.2025 18:27" Foreground="WhiteSmoke" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
                                         </StackPanel>
-                                        <TextBlock MinWidth="100" Text="What about assignment next week, will we have it?" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                                        <TextBlock MinWidth="100" Text="Еще как поверю)" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0"/>
                                     </StackPanel>
                                 </Border>
                             </ListBoxItem>
@@ -1015,7 +1190,7 @@
                                 </TextBlock>
                             </Border>
                             <Border CornerRadius="0" Background="LightGray" Padding="10 0">
-                                <TextBlock Text="Sun, May 25 2025" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                <TextBlock Text="Sun, May 18 2025" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
                             </Border>
                             <Border Height="30" Width="30" CornerRadius="0 10 10 0" Background="LightGray">
                                 <TextBlock Text=">" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -1928,7 +2103,7 @@
                                         </Border>
                                     </StackPanel>
                                     <ListBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Padding="2">
-                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                        <ListBoxItem Visibility="Collapsed" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                             <Border CornerRadius="10" Background="#FFC5C5" Width="200">
                                                 <StackPanel Orientation="Vertical">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -1939,7 +2114,7 @@
                                                 </StackPanel>
                                             </Border>
                                         </ListBoxItem>
-                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                        <ListBoxItem Visibility="Collapsed" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                             <Border CornerRadius="10" Background="#FFFFD7" Width="200">
                                                 <StackPanel Orientation="Vertical">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -1950,7 +2125,7 @@
                                                 </StackPanel>
                                             </Border>
                                         </ListBoxItem>
-                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                        <ListBoxItem Visibility="Collapsed" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                             <Border CornerRadius="10" Background="#D7FFDB" Width="200">
                                                 <StackPanel Orientation="Vertical">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -1961,7 +2136,7 @@
                                                 </StackPanel>
                                             </Border>
                                         </ListBoxItem>
-                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                        <ListBoxItem Visibility="Collapsed" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                             <Border CornerRadius="10" Background="#C4EDFF" Width="200">
                                                 <StackPanel Orientation="Vertical">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -1972,7 +2147,7 @@
                                                 </StackPanel>
                                             </Border>
                                         </ListBoxItem>
-                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                        <ListBoxItem Visibility="Collapsed" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                             <Border CornerRadius="10" Background="#E5E5E5" Width="200">
                                                 <StackPanel Orientation="Vertical">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -1983,7 +2158,7 @@
                                                 </StackPanel>
                                             </Border>
                                         </ListBoxItem>
-                                        <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                                        <ListBoxItem Visibility="Collapsed" Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                             <Border CornerRadius="10" Background="WhiteSmoke" Width="200">
                                                 <StackPanel Orientation="Vertical">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
