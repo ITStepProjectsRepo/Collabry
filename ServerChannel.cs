@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Collabry
 {
-    [NotMapped]
     public abstract class ServerChannel
     {
         [Key]

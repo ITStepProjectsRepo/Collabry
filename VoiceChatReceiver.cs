@@ -1,7 +1,12 @@
 ﻿using NAudio.Wave;
-using System.Net;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
+using System.Net;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Collabry
 {
@@ -21,6 +26,8 @@ namespace Collabry
         public void Start()
         {
             udpClient = new UdpClient(listenPort);
+            // Console.WriteLine($"Receiver listening on port {listenPort}");
+
             waveProvider = new BufferedWaveProvider(new WaveFormat(44100, 1));
             waveOut = new WaveOutEvent();
             waveOut.Init(waveProvider);
@@ -32,8 +39,10 @@ namespace Collabry
             {
                 while (isRunning)
                 {
+                    // Console.WriteLine($"Waiting for data...");
                     IPEndPoint remoteEP = null;
                     byte[] receivedData = udpClient.Receive(ref remoteEP);
+                    // Console.WriteLine($"Received {receivedData.Length} bytes from {remoteEP}");
                     waveProvider.AddSamples(receivedData, 0, receivedData.Length);
                 }
             });

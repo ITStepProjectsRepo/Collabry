@@ -23,7 +23,7 @@ namespace Collabry
 
         public bool IsEdited { get; set; } = false;
 
-        public File File { get; set; }
+        //public File File { get; set; }
 
         public Message()
         {

@@ -1,5 +1,10 @@
 ﻿using NAudio.Wave;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Collabry
 {
@@ -7,31 +12,34 @@ namespace Collabry
     {
         private WaveInEvent waveIn;
         private UdpClient udpClient;
-        private string remoteIp;
-        private int remotePort;
+        private string targetIp;
+        private int targetPort;
 
-        public VoiceChatSender(string remoteIp, int remotePort)
+        public VoiceChatSender(string targetIp, int targetPort, int localPort = 0)
         {
-            this.remoteIp = remoteIp;
-            this.remotePort = remotePort;
-        }
+            this.targetIp = targetIp;
+            this.targetPort = targetPort;
 
-        public void Start()
-        {
-            udpClient = new UdpClient();
+            if (localPort > 0)
+                udpClient = new UdpClient(localPort);
+            else
+                udpClient = new UdpClient();
 
             waveIn = new WaveInEvent
             {
                 WaveFormat = new WaveFormat(44100, 1) // 44.1kHz, mono
             };
 
-            waveIn.DataAvailable += (s, a) =>
-            {
-                udpClient.Send(a.Buffer, a.BytesRecorded, remoteIp, remotePort);
-            };
-
-            waveIn.StartRecording();
+            waveIn.DataAvailable += OnDataAvailable;
         }
+
+        private void OnDataAvailable(object sender, WaveInEventArgs e)
+        {
+            // Console.WriteLine($"Captured {e.BytesRecorded} bytes");
+            udpClient.Send(e.Buffer, e.BytesRecorded, targetIp, targetPort);
+        }
+
+        public void Start() => waveIn.StartRecording();
 
         public void Stop()
         {

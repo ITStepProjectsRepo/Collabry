@@ -25,8 +25,40 @@ namespace Collabry
 
         public DateTime JoinedAt { get; set; } = DateTime.Now;
 
+        public bool IsMicrophoneOn { get; private set; } = true;
+
+        public void TurnMicOff()
+        {
+            IsMicrophoneOn = false;
+            Sender?.Stop();
+        }
+
+        public void TurnMicOn()
+        {
+            if (!IsMuted)
+            {
+                IsMicrophoneOn = true;
+                Sender?.Start();
+            }
+        }
+
         public bool IsMuted { get; set; } = false;
+        public void Mute()
+        {
+            IsMuted = true;
+            Sender?.Stop();
+        }
+
+        public void Unmute()
+        {
+            IsMuted = false;
+            if (IsMicrophoneOn)
+                Sender?.Start();
+        }
         public bool IsBanned { get; set; } = false;
+
+        public VoiceChatSender Sender { get; set; }
+        public VoiceChatReceiver Receiver { get; set; }
 
         public virtual List<ServerRole> ServerRoles { get; set; } = new List<ServerRole>();
     }

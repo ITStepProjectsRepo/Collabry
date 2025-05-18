@@ -24,7 +24,7 @@ namespace Collabry
                 UserPicture = new System.Drawing.Bitmap(1, 1),
                 UserInfo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at tortor ut orci feugiat commodo non ornare leo.",
             };
-            
+
             //u.Connections.Add(localServer, _);
             //u.UserDMSetting.Add(localServer, false);
             //Debug.WriteLine(u.ToString());
@@ -32,7 +32,7 @@ namespace Collabry
             //string v = u.MakeInvitation();
             //u.AddDM(v);
 
-            // Voice test
+            // Voice test (VoiceChatSender + VoiceChatReceiver)
             /*
             // Sender
             var sender = new VoiceChatSender("127.0.0.1", 5000);
@@ -58,6 +58,45 @@ namespace Collabry
             messageService.AddMessage(new Message_S { Text = "Hello world!", Sender = user.UserName, TextChannelId = textChannel.Id });
             */
 
+            // Voice test 2 (VoiceChannel RelayServer + Client)
+            /*
+            string relayIp = "192.168.0.111";
+            int relayPort = 5000;
+
+            var channel = new VoiceChannel(relayIp, relayPort);
+
+            var user = new User_S { Id = 1 };
+
+            channel.Join(user);
+
+            Console.WriteLine("Voice channel joined. Press Enter to leave...");
+            Console.ReadLine();
+
+            channel.Kick(user);
+            */
+
+            // Voice test 2 (VoiceChannel Client)
+            /*
+            string relayIp = "192.168.0.111";
+            int relayPort = 5000;
+
+            var user = new User_S { Id = 2 };
+
+            int receivePort = relayPort + 1;
+            int sendPort = relayPort + 2;
+
+            user.Receiver = new VoiceChatReceiver(receivePort);
+            user.Receiver.Start();
+
+            user.Sender = new VoiceChatSender(relayIp, relayPort, localPort: sendPort);
+            user.Sender.Start();
+
+            Console.WriteLine("Client started. Press Enter to exit...");
+            Console.ReadLine();
+
+            user.Sender.Stop();
+            user.Receiver.Stop();
+            */
         }
     }
 }
