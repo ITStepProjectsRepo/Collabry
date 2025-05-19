@@ -12,7 +12,11 @@ namespace Collabry
     {
         private readonly int listenPort;
         private readonly List<IPEndPoint> clients = new List<IPEndPoint>();
+        public readonly Dictionary<IPEndPoint, UserIntroPacket> userMap = new Dictionary<IPEndPoint, UserIntroPacket>();
+        public IReadOnlyDictionary<IPEndPoint, UserIntroPacket> UserMap => userMap;
         private UdpClient udpServer;
+
+        public event Action<IPEndPoint, UserIntroPacket> ClientConnected;
 
         public VoiceRelayServer(int listenPort)
         {
@@ -23,32 +27,57 @@ namespace Collabry
         {
             udpServer = new UdpClient(listenPort);
 
-            new System.Threading.Tasks.Task(() =>
+            System.Threading.Tasks.Task.Run(() =>
             {
                 while (true)
                 {
-                    var remoteEP = new IPEndPoint(IPAddress.Any, 0);
-                    var data = udpServer.Receive(ref remoteEP);
-
-                    remoteEP = new IPEndPoint(remoteEP.Address, remoteEP.Port - 1);
-
-                    if (!clients.Any(c => c.Address.Equals(remoteEP.Address) && c.Port == remoteEP.Port))
+                    try
                     {
-                        clients.Add(remoteEP);
-                    }
+                        var remoteEP = new IPEndPoint(IPAddress.Any, 0);
+                        var data = udpServer.Receive(ref remoteEP);
 
-                    foreach (var client in clients)
-                    {
-                        if (!client.Equals(remoteEP))
+                        remoteEP = new IPEndPoint(remoteEP.Address, remoteEP.Port - 1);
+
+                        if (!userMap.ContainsKey(remoteEP))
                         {
-                            // Console.WriteLine($"Relay server received {data.Length} bytes from {remoteEP}. Forwarding to {client.Address}:{client.Port}");
-                            udpServer.Send(data, data.Length, client);
+                            try
+                            {
+                                var intro = UserIntroPacket.FromBytes(data);
+                                userMap[remoteEP] = intro;
+                                clients.Add(remoteEP);
+
+                                ClientConnected?.Invoke(remoteEP, intro);
+
+                                continue;
+                            }
+                            catch
+                            {
+                                // Not a valid intro packet, ignore or handle differently
+                            }
+                        }
+
+                        foreach (var client in clients)
+                        {
+                            if (!client.Equals(remoteEP))
+                            {
+                                udpServer.Send(data, data.Length, client);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[VoiceRelayServer] Error: {ex.Message}");
+                    }
                 }
-            }).Start();
+            });
         }
 
-        public void Stop() => udpServer?.Close();
+        public void Stop()
+        {
+            udpServer?.Close();
+            udpServer = null;
+            clients.Clear();
+            userMap.Clear();
+        }
     }
 }

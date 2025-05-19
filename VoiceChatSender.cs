@@ -39,6 +39,23 @@ namespace Collabry
             udpClient.Send(e.Buffer, e.BytesRecorded, targetIp, targetPort);
         }
 
+        public void SendIntroPacket(User_S user)
+        {
+            var packet = new UserIntroPacket
+            {
+                Id = user.UserId,
+                UserTag = user.User.UserTag,
+                UserName = user.User.UserName,
+                IsMuted = user.IsMuted,
+                IsBanned = user.IsBanned,
+                JoinedAt = user.JoinedAt,
+                UserPictureData = user.User.UserPictureData
+            };
+
+            byte[] data = packet.ToBytes();
+            udpClient.Send(data, data.Length, targetIp, targetPort);
+        }
+
         public void Start() => waveIn.StartRecording();
 
         public void Stop()
