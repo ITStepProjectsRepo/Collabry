@@ -11,12 +11,15 @@ namespace Collabry
     public class VoiceRelayServer
     {
         private readonly int listenPort;
-        private readonly List<IPEndPoint> clients = new List<IPEndPoint>();
-        public readonly Dictionary<IPEndPoint, UserIntroPacket> userMap = new Dictionary<IPEndPoint, UserIntroPacket>();
-        public IReadOnlyDictionary<IPEndPoint, UserIntroPacket> UserMap => userMap;
+
+        public readonly Dictionary<IPEndPoint, (UserIntroPacket Packet, DateTime LastSeen)> userMap =
+            new Dictionary<IPEndPoint, (UserIntroPacket Packet, DateTime LastSeen)>();
+        public IReadOnlyDictionary<IPEndPoint, (UserIntroPacket Packet, DateTime LastSeen)> UserMap => userMap;
+
         private UdpClient udpServer;
 
         public event Action<IPEndPoint, UserIntroPacket> ClientConnected;
+        public event Action<IPEndPoint, UserIntroPacket> ClientDisconnected;
 
         public VoiceRelayServer(int listenPort)
         {
@@ -43,20 +46,19 @@ namespace Collabry
                             try
                             {
                                 var intro = UserIntroPacket.FromBytes(data);
-                                userMap[remoteEP] = intro;
-                                clients.Add(remoteEP);
-
+                                userMap[remoteEP] = (intro, DateTime.UtcNow);
                                 ClientConnected?.Invoke(remoteEP, intro);
-
                                 continue;
                             }
-                            catch
-                            {
-                                // Not a valid intro packet, ignore or handle differently
-                            }
+                            catch {   }
+                        }
+                        else
+                        {
+                            var existing = userMap[remoteEP];
+                            userMap[remoteEP] = (existing.Packet, DateTime.UtcNow);
                         }
 
-                        foreach (var client in clients)
+                        foreach (var client in userMap.Keys)
                         {
                             if (!client.Equals(remoteEP))
                             {
@@ -66,8 +68,32 @@ namespace Collabry
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[VoiceRelayServer] Error: {ex.Message}");
+                        Console.WriteLine($"[VoiceRelayServer]: {ex.Message}");
                     }
+                }
+            });
+
+            // Очистка "отсохших"
+            System.Threading.Tasks.Task.Run(async () =>
+            {
+                while (true)
+                {
+                    var now = DateTime.UtcNow;
+                    var deadClients = userMap
+                        .Where(pair => (now - pair.Value.LastSeen).TotalSeconds > 10)
+                        .Select(pair => pair.Key)
+                        .ToList();
+
+                    foreach (var client in deadClients)
+                    {
+                        if (userMap.TryGetValue(client, out var data))
+                        {
+                            userMap.Remove(client);
+                            ClientDisconnected?.Invoke(client, data.Packet);
+                        }
+                    }
+
+                    await System.Threading.Tasks.Task.Delay(5000);
                 }
             });
         }
@@ -76,7 +102,6 @@ namespace Collabry
         {
             udpServer?.Close();
             udpServer = null;
-            clients.Clear();
             userMap.Clear();
         }
     }
