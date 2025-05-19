@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,41 +26,66 @@ namespace Collabry
 
         public DateTime JoinedAt { get; set; } = DateTime.Now;
 
-        public bool IsMicrophoneOn { get; private set; } = true;
+        public bool IsMuted { get; set; } = false;
+        public bool IsBanned { get; set; } = false;
 
-        public void TurnMicOff()
-        {
-            IsMicrophoneOn = false;
-            Sender?.Stop();
-        }
+        [NotMapped]
+        public VoiceChannelClient VoiceChannelClient { get; set; }
 
-        public void TurnMicOn()
+        public virtual List<ServerRole> ServerRoles { get; set; } = new List<ServerRole>();
+    }
+
+    public class UserIntroPacket
+    {
+        public int Id { get; set; }
+        public string UserTag { get; set; }
+        public string UserName { get; set; }
+        public bool IsMuted { get; set; }
+        public bool IsBanned { get; set; }
+        public DateTime JoinedAt { get; set; }
+        public byte[] UserPictureData { get; set; }
+
+        public byte[] ToBytes()
         {
-            if (!IsMuted)
+            using (var ms = new MemoryStream())
+            using (var writer = new BinaryWriter(ms))
             {
-                IsMicrophoneOn = true;
-                Sender?.Start();
+                writer.Write(Id);
+                writer.Write(UserTag ?? "");
+                writer.Write(UserName ?? "");
+                writer.Write(IsMuted);
+                writer.Write(IsBanned);
+                writer.Write(JoinedAt.ToBinary());
+
+                writer.Write(UserPictureData?.Length ?? 0);
+                if (UserPictureData != null)
+                    writer.Write(UserPictureData);
+
+                return ms.ToArray();
             }
         }
 
-        public bool IsMuted { get; set; } = false;
-        public void Mute()
+        public static UserIntroPacket FromBytes(byte[] data)
         {
-            IsMuted = true;
-            Sender?.Stop();
+            using (var ms = new MemoryStream(data))
+            using (var reader = new BinaryReader(ms))
+            {
+                var packet = new UserIntroPacket
+                {
+                    Id = reader.ReadInt32(),
+                    UserTag = reader.ReadString(),
+                    UserName = reader.ReadString(),
+                    IsMuted = reader.ReadBoolean(),
+                    IsBanned = reader.ReadBoolean(),
+                    JoinedAt = DateTime.FromBinary(reader.ReadInt64())
+                };
+
+                int imageLength = reader.ReadInt32();
+                if (imageLength > 0)
+                    packet.UserPictureData = reader.ReadBytes(imageLength);
+
+                return packet;
+            }
         }
-
-        public void Unmute()
-        {
-            IsMuted = false;
-            if (IsMicrophoneOn)
-                Sender?.Start();
-        }
-        public bool IsBanned { get; set; } = false;
-
-        public VoiceChatSender Sender { get; set; }
-        public VoiceChatReceiver Receiver { get; set; }
-
-        public virtual List<ServerRole> ServerRoles { get; set; } = new List<ServerRole>();
     }
 }

@@ -16,6 +16,7 @@ namespace Collabry
         public DbSet<Message> Messages { get; set; }
         public DbSet<Message_S> Messages_S { get; set; }
         public DbSet<TextChannel> TextChannels { get; set; }
+        public DbSet<VoiceChannel> VoiceChannels { get; set; }
 
         public AppDbContext()
             : base("name=CollabryDb")
