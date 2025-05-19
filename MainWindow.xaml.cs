@@ -25,6 +25,8 @@ namespace Collabry
                 UserInfo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at tortor ut orci feugiat commodo non ornare leo.",
             };
 
+            MeetingWindow meetingWindow = new MeetingWindow(); meetingWindow.Show();
+
             //u.Connections.Add(localServer, _);
             //u.UserDMSetting.Add(localServer, false);
             //Debug.WriteLine(u.ToString());

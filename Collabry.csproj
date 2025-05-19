@@ -100,6 +100,9 @@
     <Compile Include="ClientHandler.cs" />
     <Compile Include="AppDbContext.cs" />
     <Compile Include="File.cs" />
+    <Compile Include="MeetingWindow.xaml.cs">
+      <DependentUpon>MeetingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MessageService.cs" />
     <Compile Include="Message_S.cs" />
     <Compile Include="ServerRoleService.cs" />
@@ -144,6 +147,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MeetingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
