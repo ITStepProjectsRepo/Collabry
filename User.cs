@@ -6,8 +6,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
+using System.Windows.Shapes;
 
 
 namespace Collabry
@@ -56,10 +58,78 @@ namespace Collabry
             }
         }
         public string UserInfo { get; set; }
+
         public override string ToString()
         {
             return $"@{UserTag} {UserName}" +
             $"About: {UserInfo}";
+        }
+        public static User GetUserData(string filename)
+        {
+            if (!string.IsNullOrWhiteSpace(filename))
+            {
+                if (System.IO.File.Exists(filename))
+                {
+                    string[] data = System.IO.File.ReadAllLines(filename, Encoding.UTF8);
+                    var _u = new User(data[6], data[7], data[2], data[3], new Bitmap(1,1), data[8]);
+                    return _u;
+                }
+            }
+            return null;
+        }
+        public void SaveUserData()
+        {
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Data\\Users"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Data\\Users");
+            }
+            if (Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Data\\Users").Length>0)
+            {
+                foreach (string line in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Data\\Users"))
+                {
+                    var filestream = new FileStream(line, FileMode.Open);
+                    var file = new StreamReader(filestream, Encoding.UTF8, true, 256);
+                    file.ReadLine();
+                    file.ReadLine();
+                    string[] lineOfText = new string[] { file.ReadLine(), file.ReadLine() };
+                    file.Close();
+                    if (lineOfText[0] == Email)
+                    {
+                        if (lineOfText[1] == Password)
+                        {
+                            System.IO.File.WriteAllLines(line, new string[] {
+                                $"[",
+                                $"[",
+                                $"{Email}",
+                                $"{Password}",
+                                $"]",
+                                $"[",
+                                $"{UserTag}",
+                                $"{UserName}",
+                                $"{UserInfo}",
+                                $"]",
+                                $"]"
+                            });
+                        }
+                    }
+                }
+            }
+            else
+            {
+                System.IO.File.WriteAllLines(Directory.GetCurrentDirectory() + "\\Data\\Users\\" + (Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Data\\Users").Length+1) +".txt", new string[] {
+                    $"[",
+                    $"[",
+                    $"{Email}",
+                    $"{Password}",
+                    $"]",
+                    $"[",
+                    $"{UserTag}",
+                    $"{UserName}",
+                    $"{UserInfo}",
+                    $"]",
+                    $"]"
+                });
+            }
         }
 
         public void NewForm()

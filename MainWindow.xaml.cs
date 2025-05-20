@@ -5,6 +5,7 @@ using System.Net;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Collabry
 {
@@ -13,26 +14,32 @@ namespace Collabry
     /// </summary>
     public partial class MainWindow : Window
     {
+        private User Device {  get; set; }
+        public static User Device_S {  get; set; }
         public MainWindow()
         {
+            this.Hide();
+            Login log = new Login();
+            var res = log.ShowDialog();
             InitializeComponent();
-            User u = new User() {
-                UserTag = "qwerty123",
-                UserName = "qwerty123",
-                Email = "admin",
-                Password = "admin",
-                UserPicture = new System.Drawing.Bitmap(1, 1),
-                UserInfo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at tortor ut orci feugiat commodo non ornare leo.",
-            };
+            if (res == System.Windows.Forms.DialogResult.Yes)
+            {
+                Device = Device_S;
+                Device.SaveUserData();
+                Debug.WriteLine(Device.ToString());
+                //Device.NewForm();
+                this.ShowDialog();
+            }
+            else if (res == System.Windows.Forms.DialogResult.OK)
+            {
+                Device = Device_S;
+                Debug.WriteLine(Device.ToString());
+                //Device.NewForm();
+                this.ShowDialog();
+            }
 
-            MeetingWindow meetingWindow = new MeetingWindow(); meetingWindow.Show();
+            //MeetingWindow meetingWindow = new MeetingWindow(); meetingWindow.Show();
 
-            //u.Connections.Add(localServer, _);
-            //u.UserDMSetting.Add(localServer, false);
-            //Debug.WriteLine(u.ToString());
-            //u.NewForm();
-            //string v = u.MakeInvitation();
-            //u.AddDM(v);
 
             // Voice test (VoiceChatSender + VoiceChatReceiver)
             /*

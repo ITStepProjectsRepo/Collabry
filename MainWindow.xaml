@@ -3,7 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Collabry Chat" Height="700" Width="1200" Background="White"
         ResizeMode="NoResize">
-
+    <Window.Resources>
+        <Style TargetType="ListBox" x:Key="No_Selection">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.Setters>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Trigger.Setters>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <!-- Settings -->
         <!-- Default visibility Collapsed -->
@@ -102,7 +112,7 @@
             <!-- Visibility to collapsed -->
             <StackPanel Grid.Column="0" Visibility="Visible">
                 <Border BorderBrush="#DDD" BorderThickness="2" Height="684">
-                    <ListBox BorderBrush="Transparent">
+                    <ListBox BorderBrush="Transparent" Style="{StaticResource No_Selection}">
                         <ListBoxItem Padding="0" Margin="0">
                             <Border Height="65" Width="65" Background="#DDD" Margin="0" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
                                 <TextBlock Text="DM" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
