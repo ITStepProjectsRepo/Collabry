@@ -13,6 +13,69 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <DataTemplate x:Key="ChatUserItem">
+            <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray" Width="240">
+                <StackPanel Orientation="Horizontal" Width="230">
+                    <!-- Avatar -->
+                    <Border Height="40" Width="40" Background="#DDD" Margin="6" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding Initial}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="8"/>
+                    </Border>
+
+                    <!-- Name and Message -->
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Width="170">
+                            <!-- Editable Name -->
+                            <TextBlock Text="{Binding Name}" FontSize="18" Padding="2" TextWrapping="NoWrap" Width="150" HorizontalAlignment="Left" Margin="0"/>
+
+                            <!-- Optional Border -->
+                            <Border Visibility="{Binding StatusVisibility}" 
+                                Height="10" Width="10" 
+                                Background="{Binding StatusColor}" 
+                                Margin="6" Padding="0" 
+                                CornerRadius="30" HorizontalAlignment="Left"/>
+                        </StackPanel>
+
+                        <!-- Editable Message -->
+                        <TextBlock Text="{Binding Message}" Padding="2" TextWrapping="NoWrap" Width="160" HorizontalAlignment="Left" Margin="0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <!-- Date Header Template -->
+        <!--<DataTemplate x:Key="DateHeaderTemplate" DataType="{x:Type local:DateHeaderItem}">
+            <StackPanel HorizontalAlignment="Center" Margin="0 4">
+                <Border Background="#7F808080" CornerRadius="8" Padding="9 3">
+                    <TextBlock Text="{Binding DateText}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+
+        --><!-- Outgoing Message Template --><!--
+        <DataTemplate x:Key="OutgoingMessageTemplate" DataType="{x:Type local:OutgoingMessageItem}">
+            <Border Background="#DCF8C6" CornerRadius="16 16 0 16" HorizontalAlignment="Right" Margin="0 2">
+                <StackPanel>
+                    <TextBlock Text="{Binding Message}" MinWidth="80" MaxWidth="400" Padding="10 8 10 0" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Time}" Foreground="Gray" Padding="4 0 8 2" TextAlignment="Right"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+        --><!-- Incoming Message Template --><!--
+        <DataTemplate x:Key="IncomingMessageTemplate" DataType="{x:Type local:IncomingMessageItem}">
+            <Border Background="#eee" CornerRadius="16 16 16 0" HorizontalAlignment="Left" Margin="0 2">
+                <StackPanel>
+                    <TextBlock Text="{Binding Message}" MinWidth="80" MaxWidth="400" Padding="10 8 10 0" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Time}" Foreground="Gray" Padding="4 0 8 2" TextAlignment="Right"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>-->
+        
+        <!-- The Template Selector -->
+        <!--<local:ChatTemplateSelector x:Key="ChatSelector"
+                                DateHeaderTemplate="{StaticResource DateHeaderTemplate}"
+                                OutgoingMessageTemplate="{StaticResource OutgoingMessageTemplate}"
+                                IncomingMessageTemplate="{StaticResource IncomingMessageTemplate}"/>-->
+
     </Window.Resources>
     <Grid>
         <!-- Settings -->
@@ -155,7 +218,7 @@
                     </Border>
 
                     <!-- Chat list -->
-                    <ListBox Background="Transparent" Margin="0 8 0 0" BorderThickness="0">
+                    <ListBox Background="Transparent" Margin="0 8 0 0" BorderThickness="0" ItemTemplate="{StaticResource ChatUserItem}">
                         <ListBoxItem Width="240" Visibility="Visible">
                             <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray">
                                 <StackPanel Orientation="Horizontal" Width="245">
@@ -281,7 +344,7 @@
                 <!-- Messages -->
                 <Grid Grid.Row="1">
                     <ScrollViewer Margin="0 0 0 0">
-                        <ListBox>
+                        <ListBox><!--ItemsSource="{Binding ChatItems}" ItemTemplateSelector="{StaticResource ChatSelector}">-->
                             <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
                                 <Border Background="#DCF8C6" CornerRadius="16 16 0 16">
                                     <StackPanel>

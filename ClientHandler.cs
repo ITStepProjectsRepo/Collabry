@@ -7,9 +7,52 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace Collabry
 {
+    public abstract class ChatListItem { }
+    public class DateHeaderItem : ChatListItem
+    {
+        public string DateText { get; set; }
+    }
+
+    public class OutgoingMessageItem : ChatListItem
+    {
+        public string Message { get; set; }
+        public string Time { get; set; }
+    }
+
+    public class IncomingMessageItem : ChatListItem
+    {
+        public string Message { get; set; }
+        public string Time { get; set; }
+    }
+
+    public class ChatTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate DateHeaderTemplate { get; set; }
+        public DataTemplate OutgoingMessageTemplate { get; set; }
+        public DataTemplate IncomingMessageTemplate { get; set; }
+
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            //switch (item)
+            //{
+            //    case DateHeaderItem:
+            //        return DateHeaderTemplate;
+            //    case OutgoingMessageItem:
+            //        return OutgoingMessageTemplate;
+            //    case IncomingMessageItem:
+            //        return IncomingMessageTemplate;
+            //    default:
+            //        return base.SelectTemplate(item, container);
+            //}
+            return base.SelectTemplate(item, container);
+        }
+    }
+
     public static class ClientHandler
     {
         private static readonly char[] charg =
