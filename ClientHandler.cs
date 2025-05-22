@@ -12,46 +12,54 @@ using System.Windows;
 
 namespace Collabry
 {
-    public abstract class ChatListItem { }
-    public class DateHeaderItem : ChatListItem
+    public abstract class ChatItemBase { }
+
+    public class MessageItem : ChatItemBase
     {
-        public string DateText { get; set; }
+        public string Text { get; }
+        public DateTime Time { get; }
+        public bool IsOwner { get; }
+
+        public MessageItem(string text, DateTime time, bool isOwner)
+        {
+            Text = text;
+            Time = time;
+            IsOwner = isOwner;
+        }
     }
 
-    public class OutgoingMessageItem : ChatListItem
+    public class DateItem : ChatItemBase
     {
-        public string Message { get; set; }
-        public string Time { get; set; }
+        public DateTime Date { get; }
+
+        public DateItem(DateTime date)
+        {
+            Date = date;
+        }
     }
 
-    public class IncomingMessageItem : ChatListItem
-    {
-        public string Message { get; set; }
-        public string Time { get; set; }
-    }
 
-    public class ChatTemplateSelector : DataTemplateSelector
+    public class ChatItemTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate DateHeaderTemplate { get; set; }
-        public DataTemplate OutgoingMessageTemplate { get; set; }
-        public DataTemplate IncomingMessageTemplate { get; set; }
+        public DataTemplate MessageTemplate { get; set; }
+        public DataTemplate DateTemplate { get; set; }
+
+        public DataTemplate LeftMessageTemplate { get; set; }
+        public DataTemplate RightMessageTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            //switch (item)
-            //{
-            //    case DateHeaderItem:
-            //        return DateHeaderTemplate;
-            //    case OutgoingMessageItem:
-            //        return OutgoingMessageTemplate;
-            //    case IncomingMessageItem:
-            //        return IncomingMessageTemplate;
-            //    default:
-            //        return base.SelectTemplate(item, container);
-            //}
+            if (item is DateItem)
+                return DateTemplate;
+
+            if (item is MessageItem msg)
+                return msg.IsOwner ? RightMessageTemplate : LeftMessageTemplate;
+
             return base.SelectTemplate(item, container);
         }
+
     }
+
 
     public static class ClientHandler
     {
