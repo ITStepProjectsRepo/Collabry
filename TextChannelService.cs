@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Collabry
 {
-    public class ServerTextChannelService
+    public class TextChannelService
     {
         public static TextChannel CreateTextChannel(int serverId, string name)
         {

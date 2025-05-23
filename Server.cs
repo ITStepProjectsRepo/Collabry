@@ -13,7 +13,7 @@ namespace Collabry
         public int Id { get; set; }
 
         [Required]
-        public string ServerName { get; set; }
+        public string Name { get; set; }
 
         public virtual List<User_S> ServerMembers { get; set; } = new List<User_S>();
         public virtual List<ServerRole> ServerRoles { get; set; } = new List<ServerRole>();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Collabry
 {
-    public class Task
+    public class WorkgroupTask
     {
         public static int ID { get; set; }
         public string Name { get; set; }
@@ -17,9 +17,9 @@ namespace Collabry
         public Bitmap TaskPicture { get; set; }
         public List<TaskInfo> TaskInfo { get; set; }
         
-        public Task() { }
+        public WorkgroupTask() { }
 
-        public Task(string name, string description, DateTime deadline, File taskFile, Bitmap taskPicture, List<TaskInfo> taskInfo)
+        public WorkgroupTask(string name, string description, DateTime deadline, File taskFile, Bitmap taskPicture, List<TaskInfo> taskInfo)
         {
             Name = name;
             Description = description;

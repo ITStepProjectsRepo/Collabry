@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace Collabry
 {
@@ -38,6 +34,14 @@ namespace Collabry
                     db.VoiceChannels.Remove(channel);
                     db.SaveChanges();
                 }
+            }
+        }
+
+        public static VoiceChannel GetVoiceChannelById(int vcId)
+        {
+            using (var db = new AppDbContext())
+            {
+                return db.VoiceChannels.FirstOrDefault(vc => vc.Id == vcId);
             }
         }
 

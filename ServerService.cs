@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Collabry
 {
@@ -14,7 +11,7 @@ namespace Collabry
             {
                 var server = new Server
                 {
-                    ServerName = name
+                    Name = name
                 };
 
                 db.Servers.Add(server);
@@ -47,18 +44,25 @@ namespace Collabry
             }
         }
 
-        public static void AddUserToServer(int serverId, int userId)
+        public static User_S AddUserToServer(int serverId, int userId)
         {
             using (var db = new AppDbContext())
             {
                 var server = db.Servers.Include("ServerMembers").FirstOrDefault(s => s.Id == serverId);
-                var user = db.Users_S.Find(userId);
+                var user = db.Users.Find(userId);
 
-                if (server != null && user != null && !server.ServerMembers.Contains(user))
-                {
-                    server.ServerMembers.Add(user);
-                    db.SaveChanges();
-                }
+                if (server == null || user == null)
+                    return null;
+
+                bool exists = db.Users_S.Any(us => us.ServerId == serverId && us.UserId == userId);
+                if (exists)
+                    return db.Users_S.First(us => us.ServerId == serverId && us.UserId == userId);
+
+                var user_s = new User_S { UserId = user.Id, ServerId = server.Id };
+                db.Users_S.Add(user_s);
+                db.SaveChanges();
+
+                return user_s;
             }
         }
 

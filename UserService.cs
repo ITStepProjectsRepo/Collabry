@@ -1,30 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Collabry
 {
     public class UserService
     {
-        public static User AddUser(string userTag, string userName, string email, string password, string userInfo = "", byte[] pictureData = null)
+        public static void AddUser(User user)
         {
             using (var db = new AppDbContext())
             {
-                var user = new User
-                {
-                    UserTag = userTag,
-                    UserName = userName,
-                    Email = email,
-                    Password = password,
-                    UserInfo = userInfo,
-                    UserPictureData = pictureData
-                };
-
                 db.Users.Add(user);
                 db.SaveChanges();
-                return user;
             }
         }
 

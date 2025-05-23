@@ -18,7 +18,7 @@ namespace Collabry
         public TypeGroup GroupType { get; set; }
         public List<Message> WorkgroupGroupChat { get; set; }
         public List<User> Users { get; set; }
-        public List<Task> GroupTasks { get; set; }
+        public List<WorkgroupTask> GroupTasks { get; set; }
 
         public WorkgroupGroup() { }
 
@@ -51,15 +51,15 @@ namespace Collabry
         {
             Users.Remove(user);
         }
-        public void AddTask(Task task)
+        public void AddTask(WorkgroupTask task)
         {
             GroupTasks.Add(task);
         }
-        public void DeleteTask(Task task)
+        public void DeleteTask(WorkgroupTask task)
         {
             GroupTasks.Remove(task);
         }
-        public void UpdateTask(int ID, Task task)
+        public void UpdateTask(int ID, WorkgroupTask task)
         {
             GroupTasks[ID] = task;
         }

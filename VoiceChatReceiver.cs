@@ -1,12 +1,8 @@
 ﻿using NAudio.Wave;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Net;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Collabry
 {
@@ -16,7 +12,7 @@ namespace Collabry
         private BufferedWaveProvider waveProvider;
         private WaveOutEvent waveOut;
         private int listenPort;
-        private bool isRunning;
+        private volatile bool isRunning;
 
         public VoiceChatReceiver(int listenPort)
         {
@@ -39,11 +35,16 @@ namespace Collabry
             {
                 while (isRunning)
                 {
-                    // Console.WriteLine($"Waiting for data...");
-                    IPEndPoint remoteEP = null;
-                    byte[] receivedData = udpClient.Receive(ref remoteEP);
-                    // Console.WriteLine($"Received {receivedData.Length} bytes from {remoteEP}");
-                    waveProvider.AddSamples(receivedData, 0, receivedData.Length);
+                    try
+                    {
+                        // Console.WriteLine($"Waiting for data...");
+                        IPEndPoint remoteEP = null;
+                        byte[] receivedData = udpClient.Receive(ref remoteEP);
+                        // Console.WriteLine($"Received {receivedData.Length} bytes from {remoteEP}");
+                        waveProvider.AddSamples(receivedData, 0, receivedData.Length);
+                    }
+                    catch (SocketException) { break; }
+                    catch (ObjectDisposedException) { break; }
                 }
             });
 

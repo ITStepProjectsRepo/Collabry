@@ -16,6 +16,7 @@ namespace Collabry
     {
         private User Device {  get; set; }
         public static User Device_S {  get; set; }
+        private VoiceChannelClient voiceClient;
         public MainWindow()
         {
             this.Hide();
@@ -105,6 +106,22 @@ namespace Collabry
 
             user.Sender.Stop();
             user.Receiver.Stop();
+            */
+
+            // Voice chat example (Windows Forms)
+            /*
+            var user = new User("#0002", "User1", "Email", "12345", null, null);
+            UserService.AddUser(user);
+
+            var user_s = ServerService.AddUserToServer(69, user.Id);
+
+            voiceClient = new VoiceChannelClient(user_s, this);
+            await voiceClient.Connect(69);
+
+            labelStatus.Text = "Connected";
+
+            listBoxConnectedUsers.DataSource = voiceClient.ConnectedUsers;
+            listBoxConnectedUsers.DisplayMember = "UserName";
             */
         }
     }
