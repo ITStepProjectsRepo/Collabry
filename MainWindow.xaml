@@ -14,6 +14,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <!-- User to speak with -->
         <DataTemplate x:Key="ChatUserItem">
             <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray" Width="240">
                 <StackPanel Orientation="Horizontal" Width="230">
@@ -42,8 +43,8 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
-        <!-- Message from other person --><!--
-        <DataTemplate x:Key="LeftMessageTemplate" DataType="{x:Type MessageItem}">
+        <!-- Message from other person -->
+        <DataTemplate x:Key="LeftMessageTemplate">
             <Border Background="#eee" CornerRadius="16 16 16 0" Margin="0 2" HorizontalAlignment="Left">
                 <StackPanel>
                     <TextBlock MinWidth="80" MaxWidth="400" Text="{Binding Text}" 
@@ -52,9 +53,9 @@
                            Foreground="Gray" Padding="4 0 8 2" TextAlignment="Right"/>
                 </StackPanel>
             </Border>
-        </DataTemplate> -->
-        <!-- Message from account owner --><!--
-        <DataTemplate x:Key="RightMessageTemplate" DataType="{x:Type MessageItem}">
+        </DataTemplate>
+        <!-- Message from account owner -->
+        <DataTemplate x:Key="RightMessageTemplate">
             <Border Background="#DCF8C6" CornerRadius="16 16 0 16" Margin="0 2" HorizontalAlignment="Right">
                 <StackPanel>
                     <TextBlock MinWidth="80" MaxWidth="400" Text="{Binding Text}" 
@@ -63,22 +64,134 @@
                            Foreground="Gray" Padding="4 0 8 2" TextAlignment="Right"/>
                 </StackPanel>
             </Border>
-        </DataTemplate>-->
+        </DataTemplate>
 
-        <!-- Date divider --><!--
-        <DataTemplate x:Key="DateTemplate" DataType="{x:Type DateItem}">
+        <!-- Date divider -->
+        <DataTemplate x:Key="DateTemplate">
             <StackPanel Margin="0 4" HorizontalAlignment="Center">
                 <Border Background="#7F808080" CornerRadius="8" Padding="9 3">
                     <TextBlock Text="{Binding Date, StringFormat=D}" Foreground="White" FontWeight="Bold"/>
                 </Border>
             </StackPanel>
-        </DataTemplate>-->
+        </DataTemplate>
 
         <!-- Template Selector --><!--
         <local:ChatItemTemplateSelector x:Key="ChatItemTemplateSelector"
                                     DateTemplate="{StaticResource DateTemplate}"
                                     MessageTemplate="{StaticResource LeftMessageTemplate}"/>-->
+        
+        <!-- Server Chat Group -->
+        <DataTemplate x:Key="ServerChatGroup">
+            <ListBoxItem Margin="0" Width="225" HorizontalContentAlignment="Left">
+                <Border CornerRadius="10" Background="Transparent">
+                    <StackPanel Background="Transparent">
+                        <TextBlock Visibility="Collapsed" Text="Lorem Ipsum" FontSize="16" MaxWidth="200" Padding="10 2" TextWrapping="NoWrap" Margin="0"/>
+                        <ListBox ItemTemplate="{Binding ServerChatGroupListItem}" x:Name="ServerGroupChatList" BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
+                            <ListBoxItem Margin="0" Padding="0" MaxWidth="220" HorizontalAlignment="Left">
+                                <Border CornerRadius="10" Background="#FFEDEDED" Width="200">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
 
+                                        </Border>
+                                        <TextBlock Text="Text1" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </ListBoxItem>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+            </ListBoxItem>
+        </DataTemplate>
+        <!-- Server Chat -->
+        <DataTemplate x:Key="ServerChatGroupListItem">
+            <ListBoxItem Margin="0" Padding="0" MaxWidth="220" HorizontalAlignment="Left">
+                <Border CornerRadius="10" Background="#FFEDEDED" Width="200">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Margin="8" Height="20" Width="20" CornerRadius="10" Background="#FF0CC30C">
+
+                        </Border>
+                        <TextBlock Text="Text1" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </ListBoxItem>
+        </DataTemplate>
+        <!-- Server Chat Message -->
+        <DataTemplate x:Key="ServerChatMessageItem">
+            <ListBoxItem Visibility="Collapsed" HorizontalContentAlignment="Left" Margin="0 2">
+                <Border Background="#eee" CornerRadius="16 16 16 0">
+                    <StackPanel>
+                        <TextBlock MinWidth="80" Text="UserName" Foreground="Gray" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                        <TextBlock MinWidth="80" Text="No honestly I'm thinking of a career pivot" Background="Transparent" Padding="10 0 10 0" TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0"/>
+                        <TextBlock MinWidth="80" Text="16:28" Foreground="Gray" Padding="4 0 8 2" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                    </StackPanel>
+                </Border>
+            </ListBoxItem>
+        </DataTemplate>
+        <!-- Server Chat Date -->
+        <DataTemplate x:Key="ServerChatDateItem">
+            <ListBoxItem HorizontalContentAlignment="Center">
+                <StackPanel Margin="0 4" Orientation="Horizontal">
+                    <Border Height="2" Width="220" CornerRadius="1" Background="LightGray"/>
+                    <Border Background="#7F808080" CornerRadius="8" Padding="6 3" Margin="8 0">
+                        <TextBlock Text="May 14, 2025" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Margin="0"/>
+                    </Border>
+                    <Border Height="2" Width="220" CornerRadius="1" Background="LightGray"/>
+                </StackPanel>
+            </ListBoxItem>
+        </DataTemplate>
+        <!-- Server UserGroup List-->
+        <DataTemplate x:Key="ServerGroupList">
+            <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
+                <Border CornerRadius="10" Background="Transparent" Padding="0">
+                    <StackPanel Background="Transparent">
+                        <TextBlock Visibility="Visible" Foreground="Black" Text="Геьтмани регіону" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
+                        <ListBox x:Name="GroupUsers" ItemTemplate="{Binding ServerUsersItem}" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Padding="2">
+                            
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+            </ListBoxItem>
+        </DataTemplate>
+        <!-- Server User -->
+        <DataTemplate x:Key="ServerUsersItem">
+            <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                <Border CornerRadius="10" Background="LightGray" Width="200">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Margin="8" Height="40" Width="40" CornerRadius="20" Background="Green">
+                            <!--UserPic-->
+                        </Border>
+                        <TextBlock Text="{Binding UserName}" FontSize="20" FontWeight="SemiBold" Padding="10 0" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                        <Border Margin="16" Height="20" Width="20" CornerRadius="20" Background="Gold" Visibility="{Binding IsOwner}">
+
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </ListBoxItem>
+        </DataTemplate>
+        <!-- Workgroup Group Chat-->
+        <DataTemplate x:Key="WGroupChat">
+            <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
+                <Border CornerRadius="10" Background="LightGray" Width="200">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Channel 1" FontSize="20" FontWeight="SemiBold" Padding="10 4" TextWrapping="NoWrap" Margin="0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </ListBoxItem>
+        </DataTemplate>
+        <!-- Workgroup Chat Message-->
+        <DataTemplate x:Key="WGroupMessage">
+            <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
+                <Border Background="#FFADC5E6" CornerRadius="16 16 0 16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock MinWidth="100" Text="Myhailo" Foreground="WhiteSmoke" Padding="12 0 0 0" TextWrapping="NoWrap" TextAlignment="Left" Margin="0"/>
+                            <TextBlock MinWidth="100" Text="16.05.2025 18:19" Foreground="WhiteSmoke" Padding="6 0 12 0" TextWrapping="NoWrap" TextAlignment="Right" Margin="0"/>
+                        </StackPanel>
+                        <TextBlock MinWidth="100" Text="We finally made something great!!!" Background="Transparent" Padding="10 5 10 5" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0"/>
+                    </StackPanel>
+                </Border>
+            </ListBoxItem>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <!-- Settings -->
@@ -166,7 +279,7 @@
 
         <!-- Main panel -->
         <!-- Default visibility Visible -->
-        <Grid Visibility="Visible" Background="White">
+        <Grid Background="White" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="250"/>
@@ -178,7 +291,7 @@
             <!-- Visibility to collapsed -->
             <StackPanel Grid.Column="0" Visibility="Visible">
                 <Border BorderBrush="#DDD" BorderThickness="2" Height="684">
-                    <ListBox BorderBrush="Transparent" Style="{StaticResource No_Selection}">
+                    <ListBox BorderBrush="Transparent" Style="{StaticResource No_Selection}" x:Name="Selector">
                         <ListBoxItem Padding="0" Margin="0">
                             <Border Height="65" Width="65" Background="#DDD" Margin="0" Padding="0" CornerRadius="30" HorizontalAlignment="Left">
                                 <TextBlock Text="DM" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
@@ -205,7 +318,7 @@
 
             <!-- ChatList -->
             <!-- Visibility to collapsed -->
-            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Visible">
+            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
                 <StackPanel Background="White">
 
                     <StackPanel Orientation="Horizontal">
@@ -221,7 +334,7 @@
                     </Border>
 
                     <!-- Chat list -->
-                    <ListBox Background="Transparent" Margin="0 8 0 0" BorderThickness="0" ItemTemplate="{StaticResource ChatUserItem}">
+                    <ListBox x:Name="UserChatList" Background="Transparent" Margin="0 8 0 0" BorderThickness="0" ItemTemplate="{StaticResource ChatUserItem}">
                         <ListBoxItem Width="240" Visibility="Visible">
                             <Border CornerRadius="10" Background="White" BorderThickness="1" BorderBrush="LightGray">
                                 <StackPanel Orientation="Horizontal" Width="245">
@@ -313,7 +426,7 @@
 
             <!-- Chat area -->
             <!-- Visibility to collapsed -->
-            <Grid Grid.Column="2" Background="White" Visibility="Visible">
+            <Grid Grid.Column="2" Background="White" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="58"/>
                     <!-- Top Bar -->
@@ -347,7 +460,7 @@
                 <!-- Messages -->
                 <Grid Grid.Row="1">
                     <ScrollViewer Margin="0 0 0 0">
-                        <ListBox><!--ItemTemplateSelector="{StaticResource ChatItemTemplateSelector}">-->
+                        <ListBox x:Name="Chat"><!--ItemTemplateSelector="{StaticResource ChatItemTemplateSelector}">-->
                             <ListBoxItem HorizontalContentAlignment="Right" Margin="0 2">
                                 <Border Background="#DCF8C6" CornerRadius="16 16 0 16">
                                     <StackPanel>
@@ -441,7 +554,7 @@
 
             <!-- Profile panel -->
             <!-- Visibility to collapsed -->
-            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Visible">
+            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
                 <StackPanel Background="White">
                     <Border Margin="20" Width="120" Height="120" Background="#DDD" CornerRadius="60" HorizontalAlignment="Center">
                         <TextBlock Text="Кристя" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
@@ -494,12 +607,12 @@
                 </Border>-->
 
                     <!-- Chat list -->
-                    <ScrollViewer Margin="0" Padding="0" >
-                        <ListBox Background="Transparent" Margin="0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
+                    <ScrollViewer Margin="0" Padding="0">
+                        <ListBox x:Name="ServerPanel" Background="Transparent" Margin="0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
                             <ListBoxItem Margin="0" Width="225" HorizontalContentAlignment="Left">
-                                <Border CornerRadius="10" Background="Transparent">
+                                <Border CornerRadius="10" Background="DarkGray">
                                     <StackPanel Background="Transparent">
-                                        <TextBlock Visibility="Collapsed" Text="Lorem Ipsum" FontSize="16" MaxWidth="200" Padding="10 2" TextWrapping="NoWrap" Margin="0"/>
+                                        <TextBlock Visibility="Visible" Foreground="Black" Text="Voice chats" FontSize="16" Padding="0" TextWrapping="NoWrap" Margin="8 0"/>
                                         <ListBox BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="220" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="#FFEDEDED" Width="200">
@@ -799,7 +912,7 @@
             <!-- Visibility to collapsed -->
             <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
                 <ScrollViewer Margin="0" Padding="0" >
-                    <ListBox Background="Transparent" Margin="0 10 0 0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
+                    <ListBox x:Name="ServerUserList" Background="Transparent" Margin="0 10 0 0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
                         <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                             <Border CornerRadius="10" Background="Transparent" Padding="0">
                                 <StackPanel Background="Transparent">
@@ -986,7 +1099,7 @@
 
             <!-- Workgroup channel selector -->
             <!-- Visibility to collapsed -->
-            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
+            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Visible">
                 <StackPanel>
 
                     <StackPanel Orientation="Vertical">
@@ -1003,7 +1116,7 @@
 
                     <!-- Chat list -->
                     <ScrollViewer Margin="0" Padding="0" VerticalScrollBarVisibility="Hidden">
-                        <ListBox Background="Transparent" Margin="0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
+                        <ListBox x:Name="WorkgroupChatsTypes" Background="Transparent" Margin="0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
                             <ListBoxItem Margin="0" Width="225" HorizontalContentAlignment="Left">
                                 <Border Background="Transparent">
                                     <StackPanel Background="Transparent">
@@ -1073,7 +1186,7 @@
 
                                             </Border>
                                         </StackPanel>
-                                        <ListBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Padding="2">
+                                        <ListBox x:Name="WorkgroupsChats" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Padding="2">
                                             <ListBoxItem Margin="0" Padding="0" MaxWidth="210" HorizontalAlignment="Left">
                                                 <Border CornerRadius="10" Background="LightGray" Width="200">
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -1127,7 +1240,7 @@
 
             <!-- Channel area -->
             <!-- Visibility to collapsed -->
-            <Grid Grid.Column="2" Grid.ColumnSpan="2" Background="White" Visibility="Collapsed">
+            <Grid Grid.Column="2" Grid.ColumnSpan="2" Background="White" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="58"/>
                     <!-- Top Bar -->
@@ -1157,7 +1270,7 @@
                 <!-- Messages -->
                 <Grid Grid.Row="1">
                     <ScrollViewer Margin="0 0 0 0">
-                        <ListBox>
+                        <ListBox x:Name="WorkgroupChat">
                             <ListBoxItem HorizontalContentAlignment="Center">
                                 <StackPanel Margin="0 4">
                                     <Border Background="#7F808080" CornerRadius="8" Padding="6 3">
@@ -1266,7 +1379,7 @@
                                 </TextBlock>
                             </Border>
                             <Border CornerRadius="0" Background="LightGray" Padding="10 0">
-                                <TextBlock Text="Sun, May 18 2025" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="TodayDate" Text="Sun, May 18 2025" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
                             </Border>
                             <Border Height="30" Width="30" CornerRadius="0 10 10 0" Background="LightGray">
                                 <TextBlock Text=">" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -2168,7 +2281,7 @@
             <!-- Visibility to collapsed -->
             <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
                 <ScrollViewer Margin="0" Padding="0" Background="LightGray">
-                    <ListBox Background="Transparent" Margin="0 10 0 0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
+                    <ListBox x:Name="MeetingList" Background="Transparent" Margin="0 10 0 0" Padding="0" BorderThickness="0" HorizontalAlignment="Left">
                         <ListBoxItem Margin="0" MaxWidth="220" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                             <Border CornerRadius="10" Background="Transparent" Padding="0">
                                 <StackPanel Background="Transparent">
