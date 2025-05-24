@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Collabry
 {
@@ -30,13 +27,17 @@ namespace Collabry
             }
         }
 
-        public static void DeleteTextChannel(int channelId)
+        public static void DeleteTextChannelById(int channelId)
         {
             using (var db = new AppDbContext())
             {
-                var channel = db.TextChannels.Include("Messages_S").FirstOrDefault(c => c.Id == channelId);
+                var channel = db.TextChannels
+                                .Include("Messages_S")
+                                .FirstOrDefault(c => c.Id == channelId);
+
                 if (channel != null)
                 {
+                    db.Messages_S.RemoveRange(channel.Messages_S);
                     db.TextChannels.Remove(channel);
                     db.SaveChanges();
                 }
@@ -74,6 +75,44 @@ namespace Collabry
                     channel.Name = newName;
                     db.SaveChanges();
                 }
+            }
+        }
+
+        public static void UpdateRelaySettings(int channelId, string relayIp, int relayPort)
+        {
+            using (var db = new AppDbContext())
+            {
+                var channel = db.TextChannels.FirstOrDefault(c => c.Id == channelId);
+                if (channel != null)
+                {
+                    channel.RelayIp = relayIp;
+                    channel.RelayPort = relayPort;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public static (string relayIp, int relayPort)? GetRelaySettings(int channelId)
+        {
+            using (var db = new AppDbContext())
+            {
+                var channel = db.TextChannels.FirstOrDefault(c => c.Id == channelId);
+                if (channel != null)
+                {
+                    return (channel.RelayIp, channel.RelayPort);
+                }
+                return null;
+            }
+        }
+
+        public static List<Message_S> GetMessagesByChannelId(int channelId)
+        {
+            using (var db = new AppDbContext())
+            {
+                return db.Messages_S
+                    .Where(m => m.TextChannelId == channelId)
+                    .OrderBy(m => m.SendTime)
+                    .ToList();
             }
         }
     }

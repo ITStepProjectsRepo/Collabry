@@ -18,5 +18,8 @@ namespace Collabry
 
         [ForeignKey(nameof(ServerId))]
         public virtual Server Server { get; set; }
+
+        public string RelayIp { get; set; } = string.Empty;
+        public int RelayPort { get; set; } = 0;
     }
 }

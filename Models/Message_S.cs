@@ -13,5 +13,7 @@ namespace Collabry
 
         [ForeignKey(nameof(TextChannelId))]
         public virtual TextChannel TextChannel { get; set; }
+
+        public string DisplayMessage => $"{Sender}: {Text}";
     }
 }

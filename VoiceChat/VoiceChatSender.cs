@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using System;
 using System.Net.Sockets;
 
 namespace Collabry
@@ -30,8 +31,11 @@ namespace Collabry
 
         private void OnDataAvailable(object sender, WaveInEventArgs e)
         {
-            // Console.WriteLine($"Captured {e.BytesRecorded} bytes");
-            udpClient.Send(e.Buffer, e.BytesRecorded, targetIp, targetPort);
+            byte[] audioPayload = new byte[e.BytesRecorded + 1];
+            audioPayload[0] = 2; // Type 2 = audio packet
+            Buffer.BlockCopy(e.Buffer, 0, audioPayload, 1, e.BytesRecorded);
+
+            udpClient.Send(audioPayload, audioPayload.Length, targetIp, targetPort);
         }
 
         public void SendIntroPacket(User_S user)
@@ -47,11 +51,19 @@ namespace Collabry
                 UserPictureData = user.User.UserPictureData
             };
 
-            byte[] data = packet.ToBytes();
-            udpClient.Send(data, data.Length, targetIp, targetPort);
-        }
+            byte[] introData = packet.ToBytes();
+            byte[] fullPacket = new byte[introData.Length + 1];
+            fullPacket[0] = 1; // Type 1 = intro packet
+            Buffer.BlockCopy(introData, 0, fullPacket, 1, introData.Length);
 
+            udpClient.Send(fullPacket, fullPacket.Length, targetIp, targetPort);
+        }
         public void Start() => waveIn.StartRecording();
+
+        public void StopRecording()
+        {
+            waveIn.StopRecording();
+        }
 
         public void Stop()
         {

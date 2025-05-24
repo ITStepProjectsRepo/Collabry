@@ -8,10 +8,15 @@ namespace Collabry
     {
         private IDisposable _signalRServer;
 
-        public void Start(string ip, int port)
+        public void Start(string ip, int port, bool isVoice)
         {
             string url = $"http://{ip}:{port}/";
-            _signalRServer = WebApp.Start<VoiceSignalRStartup>(url);
+
+            if (isVoice)
+                _signalRServer = WebApp.Start<VoiceSignalRStartup>(url);
+            else
+                _signalRServer = WebApp.Start<TextSignalRStartup>(url);
+
             MessageBox.Show("SignalR server started at " + url);
         }
 

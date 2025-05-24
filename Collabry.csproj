@@ -198,8 +198,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClientHandler.cs" />
-    <Compile Include="AppDbContext.cs" />
-    <Compile Include="File.cs" />
+    <Compile Include="DbContext\AppDbContext.cs" />
+    <Compile Include="Models\File.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,43 +209,46 @@
     <Compile Include="MeetingWindow.xaml.cs">
       <DependentUpon>MeetingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MessageService.cs" />
-    <Compile Include="Message_S.cs" />
-    <Compile Include="ServerRoleService.cs" />
-    <Compile Include="ServerChannel.cs" />
-    <Compile Include="ServerService.cs" />
-    <Compile Include="TextChannelService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Models\Message_S.cs" />
+    <Compile Include="Services\ServerRoleService.cs" />
+    <Compile Include="Models\ServerChannel.cs" />
+    <Compile Include="Services\ServerService.cs" />
+    <Compile Include="Services\TextChannelService.cs" />
     <Compile Include="ShowUsrInfo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ShowUsrInfo.Designer.cs">
       <DependentUpon>ShowUsrInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="InvitedGroupsnUser.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="Server.cs" />
-    <Compile Include="ServerGroup.cs" />
-    <Compile Include="ServerRole.cs" />
+    <Compile Include="Models\InvitedGroupsnUser.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Server.cs" />
+    <Compile Include="Models\ServerGroup.cs" />
+    <Compile Include="Models\ServerRole.cs" />
     <Compile Include="SignalRHost.cs" />
-    <Compile Include="VoiceHub.cs" />
-    <Compile Include="VoiceSignalRStartup.cs" />
-    <Compile Include="WorkgroupTask.cs" />
-    <Compile Include="TaskInfo.cs" />
-    <Compile Include="TextChannel.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserPM.cs" />
-    <Compile Include="UserService.cs" />
-    <Compile Include="User_S.cs" />
-    <Compile Include="User_SService.cs" />
-    <Compile Include="VoiceChannel.cs" />
-    <Compile Include="VoiceChannelClient.cs" />
-    <Compile Include="VoiceChatReceiver.cs" />
-    <Compile Include="VoiceChatSender.cs" />
-    <Compile Include="VoiceChannelService.cs" />
-    <Compile Include="VoiceRelayServer.cs" />
-    <Compile Include="Workgroup.cs" />
-    <Compile Include="WorkgroupGroup.cs" />
-    <Compile Include="Meeting.cs" />
+    <Compile Include="TextChat\TextChannelClient.cs" />
+    <Compile Include="TextChat\TextHub.cs" />
+    <Compile Include="TextChat\TextSignalRStartup.cs" />
+    <Compile Include="VoiceChat\VoiceHub.cs" />
+    <Compile Include="VoiceChat\VoiceSignalRStartup.cs" />
+    <Compile Include="Models\WorkgroupTask.cs" />
+    <Compile Include="Models\TaskInfo.cs" />
+    <Compile Include="Models\TextChannel.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserPM.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Models\User_S.cs" />
+    <Compile Include="Services\User_SService.cs" />
+    <Compile Include="Models\VoiceChannel.cs" />
+    <Compile Include="VoiceChat\VoiceChannelClient.cs" />
+    <Compile Include="VoiceChat\VoiceChatReceiver.cs" />
+    <Compile Include="VoiceChat\VoiceChatSender.cs" />
+    <Compile Include="Services\VoiceChannelService.cs" />
+    <Compile Include="VoiceChat\VoiceRelayServer.cs" />
+    <Compile Include="Models\Workgroup.cs" />
+    <Compile Include="Models\WorkgroupGroup.cs" />
+    <Compile Include="Models\Meeting.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -303,6 +306,7 @@
     <Content Include="Scripts\jquery.signalR-2.4.3.js" />
     <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

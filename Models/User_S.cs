@@ -42,6 +42,8 @@ namespace Collabry
         public DateTime JoinedAt { get; set; }
         public byte[] UserPictureData { get; set; }
 
+        public string DisplayName => $"{UserName} {(IsMuted ? "[Микрофон выкл]" : "[Микрофон вкл]")}";
+
         public byte[] ToBytes()
         {
             using (var ms = new MemoryStream())

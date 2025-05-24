@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR.Client;
+﻿using Collabry;
+using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +16,6 @@ namespace Collabry
         public VoiceChannel CurrentVoiceChannel { get; set; }
         public User_S CurrentUser { get; set; }
         public bool IsMicrophoneOn { get; private set; } = true;
-        public bool IsServer { get; set; }
 
         public BindingList<UserIntroPacket> ConnectedUsers { get; set; } = new BindingList<UserIntroPacket>();
         private Form _uiForm;
@@ -27,6 +27,11 @@ namespace Collabry
         private HubConnection hubConnection;
         private IHubProxy hubProxy;
 
+        private bool IsServer;
+        private bool isClosing = false;
+
+        private System.Timers.Timer introTimer;
+
         public VoiceChannelClient(User_S currentUser, Form uiForm)
         {
             CurrentUser = currentUser;
@@ -36,15 +41,6 @@ namespace Collabry
         public async Task Connect(int channelId)
         {
             CurrentVoiceChannel = VoiceChannelService.GetVoiceChannelById(channelId);
-
-            var settings = VoiceChannelService.GetRelaySettings(channelId);
-            if (settings.HasValue &&
-                !string.IsNullOrEmpty(settings.Value.relayIp) &&
-                settings.Value.relayPort != 0)
-            {
-                CurrentVoiceChannel.RelayIp = settings.Value.relayIp;
-                CurrentVoiceChannel.RelayPort = settings.Value.relayPort;
-            }
 
             await InitializeHubAsync();
 
@@ -66,12 +62,20 @@ namespace Collabry
             {
                 Sender.Start();
             }
+            else if (CurrentUser.IsMuted)
+            {
+                StartIntroTimer();
+            }
         }
 
         public void Disconnect()
         {
             try
             {
+                isClosing = true;
+
+                StopIntroTimer();
+
                 Sender?.Stop();
                 Sender = null;
 
@@ -156,6 +160,11 @@ namespace Collabry
 
         private async Task OnHubConnectionClosed()
         {
+            if (isClosing)
+            {
+                return;
+            }
+
             await Task.Delay(2000);
 
             Disconnect();
@@ -200,7 +209,7 @@ namespace Collabry
             }
 
             signalRHost = new SignalRHost();
-            signalRHost.Start(CurrentVoiceChannel.RelayIp, CurrentVoiceChannel.RelayPort + 100);
+            signalRHost.Start(CurrentVoiceChannel.RelayIp, CurrentVoiceChannel.RelayPort + 100, true);
 
             VoiceChannelService.UpdateRelaySettings(CurrentVoiceChannel.Id, CurrentVoiceChannel.RelayIp, CurrentVoiceChannel.RelayPort);
 
@@ -211,10 +220,15 @@ namespace Collabry
                     try
                     {
                         if (hubConnection == null || hubConnection.State == ConnectionState.Disconnected)
+                        {
                             await InitializeHubAsync();
+                        }
 
-                        var list = relayServer.UserMap.Values.Select(v => v.Packet).ToList();
-                        await hubProxy.Invoke("UpdateUserList", list);
+                        if (hubConnection.State == ConnectionState.Connected)
+                        {
+                            var list = relayServer.UserMap.Values.Select(v => v.Packet).ToList();
+                            await hubProxy.Invoke("UpdateUserList", list);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -242,25 +256,34 @@ namespace Collabry
             return CurrentUser.Id <= otherUsers.Min(u => u.Id);
         }
 
-        public void TurnMicOn()
+        private void StartIntroTimer()
         {
-            if (!CurrentUser.IsMuted)
+            if (introTimer != null || Sender == null)
+                return;
+
+            introTimer = new System.Timers.Timer(1000);
+            introTimer.Elapsed += (s, e) =>
             {
-                IsMicrophoneOn = true;
-                Sender?.Start();
-            }
+                if (CurrentUser.IsMuted)
+                    Sender.SendIntroPacket(CurrentUser);
+            };
+            introTimer.AutoReset = true;
+            introTimer.Start();
         }
 
-        public void TurnMicOff()
+        private void StopIntroTimer()
         {
-            IsMicrophoneOn = false;
-            Sender?.Stop();
+            introTimer?.Stop();
+            introTimer?.Dispose();
+            introTimer = null;
         }
+
 
         public void Mute()
         {
             CurrentUser.IsMuted = true;
-            Sender?.Stop();
+            Sender?.StopRecording();
+            StartIntroTimer();
         }
 
         public void Unmute()
@@ -268,6 +291,8 @@ namespace Collabry
             CurrentUser.IsMuted = false;
             if (IsMicrophoneOn)
                 Sender?.Start();
+            StopIntroTimer();
+            Sender.SendIntroPacket(CurrentUser);
         }
     }
 }

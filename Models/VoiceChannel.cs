@@ -10,8 +10,5 @@ namespace Collabry
     public class VoiceChannel : ServerChannel
     {
         public int MaxUsers { get; set; } = 25;
-
-        public string RelayIp { get; set; } = string.Empty;
-        public int RelayPort { get; set; } = 0;
     }
 }

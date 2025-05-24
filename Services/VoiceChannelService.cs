@@ -24,7 +24,7 @@ namespace Collabry
             }
         }
 
-        public static void DeleteTextChannel(int channelId)
+        public static void DeleteVoiceChannelById(int channelId)
         {
             using (var db = new AppDbContext())
             {

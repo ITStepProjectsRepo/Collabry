@@ -43,40 +43,84 @@ namespace Collabry
                 {
                     var remoteEP = new IPEndPoint(IPAddress.Any, 0);
                     var data = udpServer.Receive(ref remoteEP);
+                    if (data.Length == 0) continue;
 
                     remoteEP = new IPEndPoint(remoteEP.Address, remoteEP.Port - 1);
 
-                    if (!userMap.ContainsKey(remoteEP))
-                    {
-                        try
-                        {
-                            var intro = UserIntroPacket.FromBytes(data);
-                            userMap[remoteEP] = (intro, DateTime.UtcNow);
-                            ClientConnected?.Invoke(remoteEP, intro);
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        var existing = userMap[remoteEP];
-                        userMap[remoteEP] = (existing.Packet, DateTime.UtcNow);
-                    }
+                    byte packetType = data[0];
+                    byte[] payload = data.Skip(1).ToArray();
 
-                    foreach (var client in userMap.Keys)
+                    switch (packetType)
                     {
-                        if (!client.Equals(remoteEP))
-                        {
-                            udpServer.Send(data, data.Length, client);
-                        }
+                        case 1: // Intro packet
+                            HandleIntroPacket(remoteEP, payload);
+                            break;
+
+                        case 2: // Audio packet
+                            HandleAudioPacket(remoteEP, payload);
+                            break;
+
+                        default:
+                            Console.WriteLine($"[VoiceRelayServer] Unknown packet type: {packetType}");
+                            break;
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"[VoiceRelayServer]: {ex.Message}");
                 }
+            }
+        }
+
+        private void HandleIntroPacket(IPEndPoint remoteEP, byte[] payload)
+        {
+            UserIntroPacket intro;
+            try
+            {
+                intro = UserIntroPacket.FromBytes(payload);
+            }
+            catch
+            {
+                Console.WriteLine("[VoiceRelayServer] Failed to parse intro packet.");
+                return;
+            }
+
+            bool isNewClient = !userMap.ContainsKey(remoteEP);
+            userMap[remoteEP] = (intro, DateTime.UtcNow);
+
+            if (isNewClient)
+            {
+                ClientConnected?.Invoke(remoteEP, intro);
+            }
+        }
+
+        private void HandleAudioPacket(IPEndPoint sender, byte[] payload)
+        {
+            if (userMap.ContainsKey(sender))
+            {
+                // update last seen
+                var oldData = userMap[sender];
+                userMap[sender] = (oldData.Packet, DateTime.UtcNow);
+
+                foreach (var client in userMap.Keys)
+                {
+                    if (!client.Equals(sender))
+                    {
+                        try
+                        {
+                            udpServer.Send(payload, payload.Length, client);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[VoiceRelayServer] Failed to relay audio: {ex.Message}");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // ignore unknown sender
+                Console.WriteLine($"[VoiceRelayServer] Audio packet from unknown sender: {sender}");
             }
         }
 

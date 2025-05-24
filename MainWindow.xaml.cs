@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace Collabry
 {
@@ -16,7 +17,10 @@ namespace Collabry
     {
         private User Device {  get; set; }
         public static User Device_S {  get; set; }
-        private VoiceChannelClient voiceClient;
+
+        private VoiceChannelClient voiceChannelClient;
+        private TextChannelClient textChannelClient;
+        private BindingList<Message_S> messages = new BindingList<Message_S>();
         public MainWindow()
         {
             this.Hide();
