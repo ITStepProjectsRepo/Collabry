@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Interop;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Collabry
 {
@@ -40,10 +41,10 @@ namespace Collabry
                 { _l, false}
             };
             Owner.UpdateStatic();
+            InitializeComponent();
             ChatPanel.Visible = true;
             SettingPanel.Visible = false;
             MngCntPanel.Visible = false;
-            InitializeComponent();
             foreach (var item in u.UserDM)
             {
                 ContactsListBox.Items.Add((User)item.Key);
@@ -89,9 +90,10 @@ namespace Collabry
         private void SendBtn_Click(object sender, EventArgs e)
         {
             Debug.WriteLine($"s:{sender} e:{e}");
-            User.SendMessage(Owner.GetUserConnectionInfo(Selected), InputTxtBox.Text, false);
+            User.SendMessage(Owner.GetUserConnectionInfo(Owner), InputTxtBox.Text, false);
             Owner.UpdateVars();
             UpdateListBoxes();
+            InputTxtBox.Text = string.Empty;
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,6 +103,11 @@ namespace Collabry
             MngCntPanel.Visible = false;
             SettingPanel.Location = new Point(0, 27);
             SettingsLstBox.Items.Clear();
+            TagTxtBox.Text = Owner.UserTag;
+            NameTxtBox.Text = Owner.UserName;
+            LoginTxtBox.Text = Owner.Email;
+            PassTxtBox.Text = Owner.Password;
+            AboutTxtBox.Text = Owner.UserInfo;
             foreach (var item in Owner.UserDM)
             {
                 SettingsLstBox.Items.Add((User)item.Key);
@@ -138,6 +145,45 @@ namespace Collabry
             ChatPanel.Visible = true;
             SettingPanel.Visible = false;
             MngCntPanel.Visible = false;
+        }
+
+        private void SettingsLstBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            User u = SettingsLstBox.Items[SettingsLstBox.SelectedIndex] as User;
+            UNLabel.Text = u.UserName;
+            UTLabel.Text = u.UserTag;
+        }
+
+        private void DelUBtn_Click(object sender, EventArgs e)
+        {
+            if (SettingsLstBox.SelectedIndex != 0)
+            {
+                Owner.Connections.Remove(Selected);
+                Owner.UserDM.Remove(Selected);
+                Owner.UserDMSetting.Remove(Selected);
+            }
+            else
+                MessageBox.Show("Attempted try to delete undeletable Item", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
+
+        private void MuteUBtn_Click(object sender, EventArgs e)
+        {
+            if (SettingsLstBox.SelectedIndex != 0)
+            {
+                Owner.UserDMSetting[Selected] = !Owner.UserDMSetting[Selected];
+            }
+            else
+                MessageBox.Show("Attempted try to mute unmutable Item", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
+
+        private void AccInvBtn_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(InviteTxtBox.Text))
+            {
+                Owner.AddDM(InviteTxtBox.Text);
+            }
+            else
+                MessageBox.Show("Attempted try to input empty string", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
     }
 }

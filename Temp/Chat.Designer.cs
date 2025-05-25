@@ -57,9 +57,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.chatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsLstBox = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.InviteTxtBox = new System.Windows.Forms.TextBox();
+            this.AccInvBtn = new System.Windows.Forms.Button();
+            this.DelUBtn = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.MuteUBtn = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.UNLabel = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.UTLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.ChatPanel.SuspendLayout();
             this.SettingPanel.SuspendLayout();
@@ -118,7 +124,7 @@
             this.otherToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1340, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(634, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -209,9 +215,15 @@
             // 
             // MngCntPanel
             // 
-            this.MngCntPanel.Controls.Add(this.button2);
-            this.MngCntPanel.Controls.Add(this.button1);
-            this.MngCntPanel.Controls.Add(this.textBox1);
+            this.MngCntPanel.Controls.Add(this.UTLabel);
+            this.MngCntPanel.Controls.Add(this.label9);
+            this.MngCntPanel.Controls.Add(this.UNLabel);
+            this.MngCntPanel.Controls.Add(this.label7);
+            this.MngCntPanel.Controls.Add(this.MuteUBtn);
+            this.MngCntPanel.Controls.Add(this.label6);
+            this.MngCntPanel.Controls.Add(this.DelUBtn);
+            this.MngCntPanel.Controls.Add(this.AccInvBtn);
+            this.MngCntPanel.Controls.Add(this.InviteTxtBox);
             this.MngCntPanel.Controls.Add(this.SettingsLstBox);
             this.MngCntPanel.Location = new System.Drawing.Point(639, 457);
             this.MngCntPanel.Name = "MngCntPanel";
@@ -324,45 +336,107 @@
             this.SettingsLstBox.Name = "SettingsLstBox";
             this.SettingsLstBox.Size = new System.Drawing.Size(208, 407);
             this.SettingsLstBox.TabIndex = 8;
+            this.SettingsLstBox.SelectedIndexChanged += new System.EventHandler(this.SettingsLstBox_SelectedIndexChanged);
             // 
-            // textBox1
+            // InviteTxtBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(349, 47);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(270, 20);
-            this.textBox1.TabIndex = 9;
+            this.InviteTxtBox.Location = new System.Drawing.Point(349, 50);
+            this.InviteTxtBox.Multiline = true;
+            this.InviteTxtBox.Name = "InviteTxtBox";
+            this.InviteTxtBox.Size = new System.Drawing.Size(270, 24);
+            this.InviteTxtBox.TabIndex = 9;
             // 
-            // button1
+            // AccInvBtn
             // 
-            this.button1.Location = new System.Drawing.Point(544, 94);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.AccInvBtn.Location = new System.Drawing.Point(544, 94);
+            this.AccInvBtn.Name = "AccInvBtn";
+            this.AccInvBtn.Size = new System.Drawing.Size(75, 23);
+            this.AccInvBtn.TabIndex = 10;
+            this.AccInvBtn.Text = "Accept";
+            this.AccInvBtn.UseVisualStyleBackColor = true;
+            this.AccInvBtn.Click += new System.EventHandler(this.AccInvBtn_Click);
             // 
-            // button2
+            // DelUBtn
             // 
-            this.button2.Location = new System.Drawing.Point(544, 351);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.DelUBtn.Location = new System.Drawing.Point(243, 301);
+            this.DelUBtn.Name = "DelUBtn";
+            this.DelUBtn.Size = new System.Drawing.Size(75, 23);
+            this.DelUBtn.TabIndex = 11;
+            this.DelUBtn.Text = "Delete";
+            this.DelUBtn.UseVisualStyleBackColor = true;
+            this.DelUBtn.Click += new System.EventHandler(this.DelUBtn_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(240, 53);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Invite Link";
+            // 
+            // MuteUBtn
+            // 
+            this.MuteUBtn.Location = new System.Drawing.Point(349, 301);
+            this.MuteUBtn.Name = "MuteUBtn";
+            this.MuteUBtn.Size = new System.Drawing.Size(75, 23);
+            this.MuteUBtn.TabIndex = 13;
+            this.MuteUBtn.Text = "Mute";
+            this.MuteUBtn.UseVisualStyleBackColor = true;
+            this.MuteUBtn.Click += new System.EventHandler(this.MuteUBtn_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(240, 155);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "UserName";
+            // 
+            // UNLabel
+            // 
+            this.UNLabel.AutoSize = true;
+            this.UNLabel.Location = new System.Drawing.Point(346, 155);
+            this.UNLabel.Name = "UNLabel";
+            this.UNLabel.Size = new System.Drawing.Size(35, 13);
+            this.UNLabel.TabIndex = 15;
+            this.UNLabel.Text = "label8";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(240, 196);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(48, 13);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "UserTag";
+            // 
+            // UTLabel
+            // 
+            this.UTLabel.AutoSize = true;
+            this.UTLabel.Location = new System.Drawing.Point(346, 196);
+            this.UTLabel.Name = "UTLabel";
+            this.UTLabel.Size = new System.Drawing.Size(41, 13);
+            this.UTLabel.TabIndex = 17;
+            this.UTLabel.Text = "label10";
             // 
             // Chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1340, 888);
+            this.ClientSize = new System.Drawing.Size(634, 451);
             this.Controls.Add(this.MngCntPanel);
             this.Controls.Add(this.SettingPanel);
             this.Controls.Add(this.ChatPanel);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(649, 489);
             this.Name = "Chat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chat";
+            this.TopMost = true;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ChatPanel.ResumeLayout(false);
@@ -407,8 +481,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem chatToolStripMenuItem;
         private System.Windows.Forms.ListBox SettingsLstBox;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button DelUBtn;
+        private System.Windows.Forms.Button AccInvBtn;
+        private System.Windows.Forms.TextBox InviteTxtBox;
+        private System.Windows.Forms.Label UTLabel;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label UNLabel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button MuteUBtn;
+        private System.Windows.Forms.Label label6;
     }
 }
