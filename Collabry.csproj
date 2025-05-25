@@ -199,11 +199,17 @@
     </ApplicationDefinition>
     <Compile Include="ClientHandler.cs" />
     <Compile Include="DbContext\AppDbContext.cs" />
-    <Compile Include="Models\File.cs" />
-    <Compile Include="Login.cs">
+    <Compile Include="Temp\Chat.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
+    <Compile Include="Temp\Chat.Designer.cs">
+      <DependentUpon>Chat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Temp\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Temp\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="MeetingWindow.xaml.cs">
@@ -215,10 +221,10 @@
     <Compile Include="Models\ServerChannel.cs" />
     <Compile Include="Services\ServerService.cs" />
     <Compile Include="Services\TextChannelService.cs" />
-    <Compile Include="ShowUsrInfo.cs">
+    <Compile Include="Temp\ShowUsrInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ShowUsrInfo.Designer.cs">
+    <Compile Include="Temp\ShowUsrInfo.Designer.cs">
       <DependentUpon>ShowUsrInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\InvitedGroupsnUser.cs" />
@@ -280,14 +286,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Login.resx">
+    <EmbeddedResource Include="Temp\Chat.resx">
+      <DependentUpon>Chat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Temp\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ShowUsrInfo.resx">
+    <EmbeddedResource Include="Temp\ShowUsrInfo.resx">
       <DependentUpon>ShowUsrInfo.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

@@ -24,7 +24,10 @@ namespace Collabry
         public bool IsEdited { get; set; } = false;
 
         //public File File { get; set; }
-
+        public override string ToString()
+        {
+            return $"{Sender} [{SendTime}]: {Text}";
+        }
         public Message()
         {
             SendTime = DateTime.Now;

@@ -33,14 +33,18 @@ namespace Collabry
                 Device.SaveUserData();
                 Debug.WriteLine(Device.ToString());
                 //Device.NewForm();
-                this.ShowDialog();
+                //this.ShowDialog();
+                Chat form = new Chat(Device);
+                form.Show();
             }
             else if (res == System.Windows.Forms.DialogResult.OK)
             {
                 Device = Device_S;
                 Debug.WriteLine(Device.ToString());
                 //Device.NewForm();
-                this.ShowDialog();
+                //this.ShowDialog();
+                Chat form = new Chat(Device);
+                form.Show();
             }
 
             //MeetingWindow meetingWindow = new MeetingWindow(); meetingWindow.Show();

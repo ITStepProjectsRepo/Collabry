@@ -318,7 +318,7 @@
 
             <!-- ChatList -->
             <!-- Visibility to collapsed -->
-            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
+            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Visible">
                 <StackPanel Background="White">
 
                     <StackPanel Orientation="Horizontal">
@@ -426,7 +426,7 @@
 
             <!-- Chat area -->
             <!-- Visibility to collapsed -->
-            <Grid Grid.Column="2" Background="White" Visibility="Collapsed">
+            <Grid Grid.Column="2" Background="White" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="58"/>
                     <!-- Top Bar -->
@@ -554,7 +554,7 @@
 
             <!-- Profile panel -->
             <!-- Visibility to collapsed -->
-            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
+            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Visible">
                 <StackPanel Background="White">
                     <Border Margin="20" Width="120" Height="120" Background="#DDD" CornerRadius="60" HorizontalAlignment="Center">
                         <TextBlock Text="Кристя" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
@@ -1099,7 +1099,7 @@
 
             <!-- Workgroup channel selector -->
             <!-- Visibility to collapsed -->
-            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Visible">
+            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 2 2 2" Visibility="Collapsed">
                 <StackPanel>
 
                     <StackPanel Orientation="Vertical">
@@ -1240,7 +1240,7 @@
 
             <!-- Channel area -->
             <!-- Visibility to collapsed -->
-            <Grid Grid.Column="2" Grid.ColumnSpan="2" Background="White" Visibility="Visible">
+            <Grid Grid.Column="2" Grid.ColumnSpan="2" Background="White" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="58"/>
                     <!-- Top Bar -->

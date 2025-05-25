@@ -5,10 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
+using System.Windows.Documents;
+using System.Windows.Forms;
+using System.Windows.Interop;
 using System.Windows.Shapes;
 
 
@@ -58,11 +62,16 @@ namespace Collabry
             }
         }
         public string UserInfo { get; set; }
-
         public override string ToString()
         {
-            return $"@{UserTag} {UserName}" +
-            $"About: {UserInfo}";
+            return $"{UserName}";
+        }
+        public string[] InfoToString()
+        {
+            return new string[] {
+                $"{UserTag}",
+                $"{UserName}",
+                $"{UserInfo}"};
         }
         public static User GetUserData(string filename)
         {
@@ -76,6 +85,54 @@ namespace Collabry
                 }
             }
             return null;
+        }
+        public static TcpClient GetUserConnectionInfoS(User u)
+        {
+            TcpClient _t = new TcpClient();
+            foreach (var items in ConnectionsS)
+            {
+                if (items.Key == u)
+                {
+                    _t = ConnectionsS[u];
+                }
+            }
+            return _t;
+        }
+        public TcpClient GetUserConnectionInfo(User u)
+        {
+            TcpClient _t = new TcpClient();
+            foreach (var items in ConnectionsS)
+            {
+                if (items.Key == u)
+                {
+                    _t = ConnectionsS[u];
+                }
+            }
+            return _t;
+        }
+        public User GetUserFromConnection(TcpClient t)
+        {
+            User _u = new User();
+            foreach (var items in ConnectionsS)
+            {
+                if (items.Value == t)
+                {
+                    _u = items.Key;
+                }
+            }
+            return _u;
+        }
+        public void UpdateStatic()
+        {
+            ConnectionsS = Connections;
+            UserDM_S = UserDM;
+            UserDMSetting_S = UserDMSetting;
+        }
+        public void UpdateVars()
+        {
+            Connections = ConnectionsS;
+            UserDM = UserDM_S;
+            UserDMSetting = UserDMSetting_S;
         }
         public void SaveUserData()
         {
@@ -131,7 +188,6 @@ namespace Collabry
                 });
             }
         }
-
         public void NewForm()
         {
             Thread t = new Thread(() => {
@@ -144,6 +200,7 @@ namespace Collabry
             });
             t.Start();
         }
+
 
         public User() { }
         public User(string userTag, string userName, string email, string password, Bitmap userPicture, string userInfo)
@@ -206,11 +263,18 @@ namespace Collabry
             }
         }
 
-        public static void SendMessage(TcpClient client, string message)
+        public static void SendMessage(TcpClient client, string message, bool alreadyFomated)
         {
             try
             {
-                if (client == null || !client.Connected)
+                if (client != null && client.Client.RemoteEndPoint == null)
+                {
+                    Debug.WriteLine("Probably (local)Saved Messages chat located");
+                    Message _msg = new Message() { Sender = UserTag_S, Text = message, SendTime = DateTime.Now };
+                    AddMessageDM(client, _msg.Text, true);
+                    return;
+                }
+                else if (client == null || !client.Connected)
                 {
                     Debug.WriteLine("SendMessage failed: Client is not connected.");
                     return;
@@ -222,25 +286,32 @@ namespace Collabry
                     Debug.WriteLine("SendMessage failed: Cannot write to stream.");
                     return;
                 }
-
-                using (var writer = new StreamWriter(stream))
+                if (!alreadyFomated)
                 {
-                    // Message used from class, it`s format:
-                    // MESS>{TAG}>{MESSAGE}|{DATETIME.YYYY}.{DATETIME.MM}.{DATETIME.DD}.{DATETIME.H}.{DATETIME.M}.{DATETIME.S}
-                    Message _msg = new Message() { Sender = UserTag_S, Text = message, SendTime = DateTime.Now };
-                    writer.AutoFlush = true;
-                    writer.WriteLine(
-                        $"MESS>{UserTag_S}>{_msg.Text}|" +
-                        $"{_msg.SendTime.Year}." +
-                        $"{_msg.SendTime.Month}." +
-                        $"{_msg.SendTime.Day}." +
-                        $"{_msg.SendTime.Hour}." +
-                        $"{_msg.SendTime.Minute}." +
-                        $"{_msg.SendTime.Second}");
-                    writer.Flush();
+                    using (var writer = new StreamWriter(stream))
+                    {
+                        // Message used from class, it`s format:
+                        // MESS>{TAG}>{MESSAGE}|{DATETIME.YYYY}.{DATETIME.MM}.{DATETIME.DD}.{DATETIME.H}.{DATETIME.M}.{DATETIME.S}
+                        Message _msg = new Message() { Sender = UserTag_S, Text = message, SendTime = DateTime.Now };
+                        writer.AutoFlush = true;
+                        writer.WriteLine(
+                            $"MESS>{UserTag_S}>{_msg.Text}|" +
+                            $"{_msg.SendTime.Year}." +
+                            $"{_msg.SendTime.Month}." +
+                            $"{_msg.SendTime.Day}." +
+                            $"{_msg.SendTime.Hour}." +
+                            $"{_msg.SendTime.Minute}." +
+                            $"{_msg.SendTime.Second}");
+                        writer.Flush();
 
-                    AddMessageDM(client, _msg.Text, true);
+                        AddMessageDM(client, _msg.Text, true);
+                    }
                 }
+                else
+                {
+                    //AddMessageDM(client, _msg.Text, true);
+                }
+                
             }
             catch (Exception ex)
             {
@@ -279,7 +350,7 @@ namespace Collabry
 
                                 ConnectionsS.Add(newU, client);
                                 UserDM_S.Add(newU, new List<Message>());
-                                UserDMSetting_S.Add(newU, true);  
+                                UserDMSetting_S.Add(newU, true);
                             }
                             else if (message.Split('>')[1].StartsWith("ASKINFO"))
                             {
@@ -304,6 +375,25 @@ namespace Collabry
                             if (ConnectionsS.Values.Equals(client))
                             {
                                 AddMessageDM(value.Key, message, false);
+                            }
+                        }
+                    }
+                    else if (message.StartsWith("CALL>"))
+                    {
+                        if (message.Split('>')[2].StartsWith("IN"))
+                        {
+                            DialogResult res = MessageBox.Show($"{message.Split('>')[1]} is calling you...", "Call Initiated", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            if (res == DialogResult.OK)
+                            {
+                                //Answering the call
+                                SendMessage(client, $"CALL>{message.Split('>')[1]}>IN>ACCEPTED", true);
+                                //MainForm call = new MainForm((User)Owner,(User)Selected, false);
+                                //call.Show();
+                                var u = this.GetUserFromConnection(client);
+                            }
+                            else
+                            {
+                                SendMessage(client, $"CALL>{message.Split('>')[1]}>IN>CANCELED", true);
                             }
                         }
                     }

@@ -45,8 +45,13 @@ namespace Collabry
                         {
                             MainWindow.Device_S = User.GetUserData(line);
                             DialogResult = DialogResult.OK;
+                            break;
                         }
+                        else
+                            MessageBox.Show("Check inputed data for mistakes", "Incorrect Data Detected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+                    else
+                        MessageBox.Show("Check inputed data for mistakes", "Incorrect Data Detected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
